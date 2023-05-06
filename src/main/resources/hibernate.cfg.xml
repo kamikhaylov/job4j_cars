@@ -16,5 +16,6 @@
         <mapping class="ru.job4j.cars.common.model.User" />
         <mapping class="ru.job4j.cars.common.model.Post" />
         <mapping class="ru.job4j.cars.common.model.PriceHistory" />
+        <mapping class="ru.job4j.cars.common.model.Participates" />
     </session-factory>
 </hibernate-configuration>

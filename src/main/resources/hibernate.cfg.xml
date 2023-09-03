@@ -20,6 +20,7 @@
         <mapping class="ru.job4j.cars.common.model.Engine" />
         <mapping class="ru.job4j.cars.common.model.Owner" />
         <mapping class="ru.job4j.cars.common.model.History" />
+        <mapping class="ru.job4j.cars.common.model.Photo" />
 
     </session-factory>
 </hibernate-configuration>

@@ -29,23 +29,30 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Post {
+
+    /** Идентификатор объявления */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
+    /** Текст объявления */
     private String text;
 
+    /** Дата создания */
     private LocalDateTime created;
 
+    /** Пользователь */
     @ManyToOne
     @JoinColumn(name = "auto_user_id")
     private User user;
 
+    /** История стоимости */
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "auto_post_id")
     private List<PriceHistory> priceHistory = new ArrayList<>();
 
+    /** Владельцы */
     @ManyToMany
     @JoinTable(
             name = "participates",
@@ -54,8 +61,14 @@ public class Post {
     )
     private List<User> participates = new ArrayList<>();
 
+    /** Автомобиль */
     @ManyToOne
     @JoinColumn(name = "car_id")
     private Car car;
+
+    /** Фото */
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "photo_id")
+    private List<Photo> photoList = new ArrayList<>();
 
 }

@@ -29,10 +29,8 @@ public class Engine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "id")
     private int id;
 
     /** Наименнование двигателя */
-    @Column(name = "name")
     private String name;
 }

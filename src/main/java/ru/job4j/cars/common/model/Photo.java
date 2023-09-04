@@ -28,14 +28,11 @@ public class Photo {
     /** Идентификатор фото */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
     /** Наименнование фото */
-    @Column(name = "name")
     private String name;
 
     /** Путь к фото */
-    @Column(name = "path")
     private String path;
 }

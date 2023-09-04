@@ -31,11 +31,9 @@ public class Owner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    @Column(name = "id")
     private int id;
 
     /** Имя владельца */
-    @Column(name = "name")
     private String name;
 
     /** Пользователь */

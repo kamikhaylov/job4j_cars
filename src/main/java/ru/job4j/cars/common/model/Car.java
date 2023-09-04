@@ -37,11 +37,9 @@ public class Car {
     /** Идентификатор автомобиля */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
 
     /** Наименнование автомобиля */
-    @Column(name = "name")
     private String name;
 
     /** Идентификатор двигателя */

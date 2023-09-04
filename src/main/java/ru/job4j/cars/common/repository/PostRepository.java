@@ -48,7 +48,7 @@ public class PostRepository {
      */
     public List<Post> findAllPostWithModel(String name) {
         return crudRepository.query(
-                "from Post where car_id in (select id from car where name = :fName)",
+                "from Post p join fetch p.car where p.car.name = :fName",
                 Post.class,
                 Map.of("fName", name));
     }

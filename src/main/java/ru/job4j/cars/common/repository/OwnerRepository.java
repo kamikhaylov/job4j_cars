@@ -44,7 +44,7 @@ public class OwnerRepository {
      */
     public void delete(int id) {
         crudRepository.run(
-                "delete from Owners where id = :fId",
+                "delete from Owner where id = :fId",
                 Map.of("fId", id)
         );
     }
@@ -56,7 +56,7 @@ public class OwnerRepository {
      */
     public List<Owner> findAll() {
         return crudRepository.query(
-                "from Owners order by id asc",
+                "from Owner order by id asc",
                 Owner.class);
     }
 
@@ -68,7 +68,7 @@ public class OwnerRepository {
      */
     public Optional<Owner> findById(int id) {
         return crudRepository.optional(
-                "from Owners where id = :fId", Owner.class,
+                "from Owner where id = :fId", Owner.class,
                 Map.of("fId", id)
         );
     }

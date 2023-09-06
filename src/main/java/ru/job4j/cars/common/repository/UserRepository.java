@@ -45,7 +45,7 @@ public class UserRepository {
      * Список пользователь отсортированных по id.
      * @return список пользователей.
      */
-    public List<User> findAllOrderById() {
+    public List<User> findAll() {
         return crudRepository.query("from User order by id asc", User.class);
     }
 

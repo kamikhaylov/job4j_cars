@@ -36,7 +36,7 @@ public class PostRepository {
      * @param post объявление.
      */
     public void update(Post post) {
-        crudRepository.run(session -> session.merge(post));
+        crudRepository.run(session -> session.update(post));
     }
 
     /**

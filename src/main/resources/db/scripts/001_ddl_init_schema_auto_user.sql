@@ -1,7 +1,7 @@
-CREATE TABLE auto_user (
-    id SERIAL PRIMARY KEY,
-    login VARCHAR NOT NULL UNIQUE,
-    password VARCHAR NOT NULL
+create table auto_user (
+    id          serial primary key,
+    login       varchar not null unique,
+    password    varchar not null
 );
 
-ALTER TABLE auto_user ADD CONSTRAINT login_unique UNIQUE (login);
+alter table auto_user add constraint login_unique unique (login);

@@ -1,6 +1,6 @@
-CREATE TABLE price_history (
-    id SERIAL PRIMARY KEY,
-    before BIGINT not null,
-    after BIGINT not null,
-    created TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
+create table price_history (
+    id      serial primary key,
+    before  bigint not null,
+    after   bigint not null,
+    created timestamp without time zone default now()
 );

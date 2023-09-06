@@ -24,7 +24,8 @@ import static ru.job4j.cars.common.repository.CreatedDtoUtils.createUser;
 
 class HistoryRepositoryTest {
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final StandardServiceRegistry registry =
             new StandardServiceRegistryBuilder().configure().build();

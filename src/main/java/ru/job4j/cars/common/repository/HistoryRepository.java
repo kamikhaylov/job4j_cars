@@ -34,7 +34,7 @@ public class HistoryRepository {
      * @param history история.
      */
     public void update(History history) {
-        crudRepository.run(session -> session.update(history));
+        crudRepository.run(session -> session.merge(history));
     }
 
     /**

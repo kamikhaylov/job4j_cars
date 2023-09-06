@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import ru.job4j.cars.common.model.History;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,8 @@ import static ru.job4j.cars.common.repository.CreatedDtoUtils.createOwner;
 import static ru.job4j.cars.common.repository.CreatedDtoUtils.createUser;
 
 class HistoryRepositoryTest {
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private final StandardServiceRegistry registry =
             new StandardServiceRegistryBuilder().configure().build();
@@ -69,7 +72,8 @@ class HistoryRepositoryTest {
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(historyToUpdate.getId(), result.getId());
-        Assertions.assertEquals(historyToUpdate.getEndAt(), result.getEndAt());
+        Assertions.assertEquals(historyToUpdate.getEndAt().format(FORMATTER),
+                result.getEndAt().format(FORMATTER));
     }
 
     @Test

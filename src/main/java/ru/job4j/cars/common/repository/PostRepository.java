@@ -8,6 +8,7 @@ import ru.job4j.cars.common.model.Post;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Методы для работы с таблицей auto_post.
@@ -17,6 +18,62 @@ import java.util.Map;
 public class PostRepository {
 
     private final CrudRepository crudRepository;
+
+    /**
+     * Сохранить объявление в базе.
+     *
+     * @param post объявление.
+     * @return объявление с id.
+     */
+    public Post create(Post post) {
+        crudRepository.run(session -> session.persist(post));
+        return post;
+    }
+
+    /**
+     * Обновить объявление в базе.
+     *
+     * @param post объявление.
+     */
+    public void update(Post post) {
+        crudRepository.run(session -> session.merge(post));
+    }
+
+    /**
+     * Удалить объявление по id.
+     *
+     * @param id ID объявление
+     */
+    public void delete(int id) {
+        crudRepository.run(
+                "delete from Post where id = :fId",
+                Map.of("fId", id)
+        );
+    }
+
+    /**
+     * Список объявлений по id.
+     *
+     * @return список объявлений.
+     */
+    public List<Post> findAll() {
+        return crudRepository.query(
+                "from Post order by id asc",
+                Post.class);
+    }
+
+    /**
+     * Найти объявление по ID
+     *
+     * @param id ID
+     * @return объявление.
+     */
+    public Optional<Post> findById(int id) {
+        return crudRepository.optional(
+                "from Post where id = :fId", Post.class,
+                Map.of("fId", id)
+        );
+    }
 
     /**
      * Получить объявления за последний день.

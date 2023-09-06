@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,8 +68,8 @@ public class Post {
     private Car car;
 
     /** Фото */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "photo_id")
-    private List<Photo> photoList = new ArrayList<>();
+    private Photo photo;
 
 }

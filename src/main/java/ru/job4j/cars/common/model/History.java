@@ -34,9 +34,11 @@ public class History {
     private Integer id;
 
     /** Дата начала */
+    @Column(name = "start_at")
     private LocalDateTime startAt;
 
     /** Дата окончания */
+    @Column(name = "end_at")
     private LocalDateTime endAt;
 
     /** Владелец */

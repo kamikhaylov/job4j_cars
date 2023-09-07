@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.repository;
+package ru.job4j.cars.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createCar;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createEngine;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createPhoto;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createPost;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createUser;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createCar;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createEngine;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createPhoto;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createPost;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createUser;
 
 class PostRepositoryTest {
     private final StandardServiceRegistry registry =

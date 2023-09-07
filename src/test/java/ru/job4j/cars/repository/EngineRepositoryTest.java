@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.repository;
+package ru.job4j.cars.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createOwner;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createUser;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createOwner;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createUser;
 
 class EngineRepositoryTest {
 

@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.repository;
+package ru.job4j.cars.repository;
 
 import lombok.AllArgsConstructor;
 import ru.job4j.cars.common.model.Post;

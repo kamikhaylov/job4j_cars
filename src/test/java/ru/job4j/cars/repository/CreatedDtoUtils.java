@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.repository;
+package ru.job4j.cars.repository;
 
 import ru.job4j.cars.common.model.Car;
 import ru.job4j.cars.common.model.Engine;
@@ -9,8 +9,6 @@ import ru.job4j.cars.common.model.Post;
 import ru.job4j.cars.common.model.User;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 public class CreatedDtoUtils {
 

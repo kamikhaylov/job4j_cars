@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.repository;
+package ru.job4j.cars.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,27 +10,30 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.common.model.Photo;
+import ru.job4j.cars.common.model.Car;
 
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
-import static ru.job4j.cars.common.repository.CreatedDtoUtils.createPhoto;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createCar;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createEngine;
 
-class PhotoRepositoryTest {
+class CarRepositoryTest {
+
     private final StandardServiceRegistry registry =
             new StandardServiceRegistryBuilder().configure().build();
     private final SessionFactory sf =
             new MetadataSources(registry).buildMetadata().buildSessionFactory();
     private final CrudRepository crudRepository = new CrudRepository(sf);
-    private final PhotoRepository photoRepository = new PhotoRepository(crudRepository);
+    private final CarRepository carRepository = new CarRepository(crudRepository);
+    private final EngineRepository engineRepository = new EngineRepository(crudRepository);
 
-    private Photo photo;
+    private Car car;
 
     @BeforeEach
     public void before() {
-        photo = createPhoto(photoRepository);
+        car = createCar(carRepository, createEngine(engineRepository));
     }
 
     @AfterEach
@@ -39,7 +42,8 @@ class PhotoRepositoryTest {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createQuery("delete from Photo").executeUpdate();
+            session.createQuery("delete from Car").executeUpdate();
+            session.createQuery("delete from Engine").executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
             if (nonNull(transaction)) {
@@ -53,36 +57,36 @@ class PhotoRepositoryTest {
 
     @Test
     public void whenUpdate() {
-        Photo photoToUpdate = photoRepository.findById(photo.getId()).get();
-        photoToUpdate.setName("new");
-        photoRepository.update(photoToUpdate);
-        Photo result = photoRepository.findById(photo.getId()).get();
+        Car carToUpdate = carRepository.findById(car.getId()).get();
+        carToUpdate.setName("new");
+        carRepository.update(carToUpdate);
+        Car result = carRepository.findById(car.getId()).get();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(photoToUpdate.getName(), result.getName());
+        Assertions.assertEquals(carToUpdate.getName(), result.getName());
     }
 
     @Test
     public void whenDelete() {
-        photoRepository.delete(photo.getId());
-        Optional<Photo> result = photoRepository.findById(photo.getId());
+        carRepository.delete(car.getId());
+        Optional<Car> result = carRepository.findById(car.getId());
 
         Assertions.assertTrue(result.isEmpty());
     }
 
     @Test
     public void whenFindAll() {
-        List<Photo> result = photoRepository.findAll();
+        List<Car> result = carRepository.findAll();
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(1, result.size());
-        Assertions.assertEquals(photo.getName(), result.get(0).getName());
+        Assertions.assertEquals(car.getName(), result.get(0).getName());
     }
 
     @Test
     public void whenFindById() {
-        Photo result = photoRepository.findById(photo.getId()).get();
+        Car result = carRepository.findById(car.getId()).get();
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(photo.getName(), result.getName());
+        Assertions.assertEquals(car.getName(), result.getName());
     }
 }

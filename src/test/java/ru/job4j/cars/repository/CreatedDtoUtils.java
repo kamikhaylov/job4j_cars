@@ -29,6 +29,7 @@ public class CreatedDtoUtils {
         User user = new User();
         user.setLogin("test_login");
         user.setPassword("test_password");
+        user.setName("test_name");
         return userRepository.create(user);
     }
 

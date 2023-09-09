@@ -24,40 +24,21 @@
 
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <div class="navbar-nav me-auto">
-                        <a class="nav-item nav-link active" href="#" th:href="@{/post/list}">Объявления<span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#" th:href="@{/post/create}">Добавить<span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="#" th:href="@{/post/list}">Объявления<span class="sr-only">(current)</span></a>
+                        <a class="nav-item nav-link" href="#" th:href="@{/post/auto_user}">Добавить<span class="sr-only">(current)</span></a>
                         <a class="nav-item nav-link" href="#" th:href="@{/post/my}">Мои<span class="sr-only">(current)</span></a>
                         <a class="nav-item nav-link" href="#" th:href="@{/user/registration}">Регистрация<span class="sr-only">(current)</span></a>
-
-                        <a class="nav-item nav-link" th:if="${user.name == 'Гость'}" th:href="@{/user/authorization}">
-                            <span th:text="${user.name}"></span>
-                            <span> | Войти</span>
-                        </a>
-                        <a class="nav-item nav-link" th:if="${user.name != 'Гость'}" th:href="@{/user/logout}">
-                            <span th:text="${user.name}"></span>
-                            <span> | Выйти</span>
-                        </a>
                     </div>
                 </div>
-
             </nav>
             <br>
-            <div class="row">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Фото</th>
-                            <th scope="col">Описание</th>
-                            <th scope="col">Модель</th>
-                            <th scope="col">Двигатель</th>
-                            <th scope="col">Год</th>
-                            <th scope="col">Пробег</th>
-                            <th scope="col">Стоимость</th>
-                            <th scope="col">Дата создания</th>
-                        </tr>
-                    </thead>
 
-                </table>
+            <div class="row">
+                <div class="card" style="width: 100%">
+                    <div class="card-header">
+                        Пользователь существует
+                    </div>
+                </div>
             </div>
         </div>
     </body>

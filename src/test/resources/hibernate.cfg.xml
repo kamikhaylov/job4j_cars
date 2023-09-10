@@ -13,14 +13,19 @@
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
 
-        <mapping class="ru.job4j.cars.common.model.User" />
-        <mapping class="ru.job4j.cars.common.model.Post" />
-        <mapping class="ru.job4j.cars.common.model.PriceHistory" />
-        <mapping class="ru.job4j.cars.common.model.Car" />
-        <mapping class="ru.job4j.cars.common.model.Engine" />
-        <mapping class="ru.job4j.cars.common.model.Owner" />
-        <mapping class="ru.job4j.cars.common.model.History" />
-        <mapping class="ru.job4j.cars.common.model.Photo" />
+        <mapping class="ru.job4j.cars.common.model.user.User"/>
+
+        <mapping class="ru.job4j.cars.common.model.car.History"/>
+        <mapping class="ru.job4j.cars.common.model.car.Car"/>
+        <mapping class="ru.job4j.cars.common.model.car.Engine"/>
+        <mapping class="ru.job4j.cars.common.model.car.Owner"/>
+        <mapping class="ru.job4j.cars.common.model.car.Brand"/>
+        <mapping class="ru.job4j.cars.common.model.car.Color"/>
+
+        <mapping class="ru.job4j.cars.common.model.post.Post"/>
+        <mapping class="ru.job4j.cars.common.model.post.PriceHistory"/>
+        <mapping class="ru.job4j.cars.common.model.post.Photo"/>
+        <mapping class="ru.job4j.cars.common.model.post.Category"/>
 
     </session-factory>
 </hibernate-configuration>

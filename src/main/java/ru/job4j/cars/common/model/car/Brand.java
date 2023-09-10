@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.model;
+package ru.job4j.cars.common.model.car;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -14,24 +14,27 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Мадель двигателя
+ * Марка автомобиля
  */
 @Entity
-@Table(name = "engine")
+@Table(name = "car_brand")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Engine {
+public class Brand {
 
-    /** Идентификатор двигателя */
+    /** Марки автомобиля */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
-    /** Наименнование двигателя */
+    /** Марка автомобиля */
     private String name;
+
+    /** Модель автомобиля */
+    private String model;
 }

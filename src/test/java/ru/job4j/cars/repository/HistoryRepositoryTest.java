@@ -10,7 +10,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.common.model.History;
+import ru.job4j.cars.common.model.car.History;
+import ru.job4j.cars.repository.car.HistoryRepository;
+import ru.job4j.cars.repository.car.OwnerRepository;
+import ru.job4j.cars.repository.user.UserRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.model;
+package ru.job4j.cars.common.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -13,27 +13,24 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * Мадель фото
- */
 @Entity
-@Table(name = "photo")
+@Table(name = "auto_user")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-public class Photo {
-
-    /** Идентификатор фото */
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @EqualsAndHashCode.Include
+    private int id;
 
-    /** Наименнование фото */
+    private String login;
+
+    private String password;
+
     private String name;
 
-    /** Путь к фото */
-    private String path;
 }

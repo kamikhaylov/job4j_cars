@@ -1,8 +1,9 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.post;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cars.common.model.Post;
+import ru.job4j.cars.common.model.post.Post;
+import ru.job4j.cars.repository.CrudRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -104,7 +105,9 @@ public class PostRepository {
      */
     public List<Post> findAllPostWithModel(String name) {
         return crudRepository.query(
-                "from Post p join fetch p.car where p.car.name = :fName",
+                "from Post p "
+                        + "join fetch p.car "
+                        + "where p.car.brand.name = :fName",
                 Post.class,
                 Map.of("fName", name));
     }

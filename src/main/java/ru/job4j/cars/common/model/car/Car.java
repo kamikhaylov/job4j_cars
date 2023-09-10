@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.model;
+package ru.job4j.cars.common.model.car;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -40,13 +40,29 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /** Наименнование автомобиля */
-    private String name;
+    /** Марка автомобиля */
+    @ManyToOne
+    @JoinColumn(name = "brand_id", foreignKey = @ForeignKey(name = "brand_id_fk"))
+    private Brand brand;
 
     /** Идентификатор двигателя */
     @ManyToOne
     @JoinColumn(name = "engine_id", foreignKey = @ForeignKey(name = "engine_id_fk"))
     private Engine engine;
+
+    /** Год выпуска */
+    private Integer year;
+
+    /** Пробег */
+    private Integer mileage;
+
+    /** VIN-номер */
+    private String vin;
+
+    /** Цвет */
+    @ManyToOne
+    @JoinColumn(name = "color_id", foreignKey = @ForeignKey(name = "color_id_fk"))
+    private Color color;
 
     /** Список владельцев */
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

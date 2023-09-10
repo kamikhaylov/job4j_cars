@@ -3,7 +3,7 @@ package ru.job4j.cars.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
-import ru.job4j.cars.common.model.User;
+import ru.job4j.cars.common.model.user.User;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

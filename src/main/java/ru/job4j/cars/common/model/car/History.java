@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.model;
+package ru.job4j.cars.common.model.car;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.job4j.cars.common.model.car.Owner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 /**
- * Мадель история
+ * Мадель история владения автомобиля
  */
 @Entity
 @Table(name = "history")

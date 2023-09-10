@@ -2,8 +2,8 @@ package ru.job4j.cars.service;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
-import ru.job4j.cars.common.model.User;
-import ru.job4j.cars.repository.UserRepository;
+import ru.job4j.cars.common.model.user.User;
+import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.Optional;
 

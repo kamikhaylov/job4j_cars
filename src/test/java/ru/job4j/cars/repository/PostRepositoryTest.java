@@ -10,13 +10,24 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.common.model.Post;
+import ru.job4j.cars.common.model.post.Post;
+import ru.job4j.cars.repository.car.BrandRepository;
+import ru.job4j.cars.repository.car.CarRepository;
+import ru.job4j.cars.repository.car.ColorRepository;
+import ru.job4j.cars.repository.car.EngineRepository;
+import ru.job4j.cars.repository.post.CategoryRepository;
+import ru.job4j.cars.repository.post.PhotoRepository;
+import ru.job4j.cars.repository.post.PostRepository;
+import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createBrand;
 import static ru.job4j.cars.repository.CreatedDtoUtils.createCar;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createCategory;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createColor;
 import static ru.job4j.cars.repository.CreatedDtoUtils.createEngine;
 import static ru.job4j.cars.repository.CreatedDtoUtils.createPhoto;
 import static ru.job4j.cars.repository.CreatedDtoUtils.createPost;
@@ -33,6 +44,9 @@ class PostRepositoryTest {
     private final UserRepository userRepository = new UserRepository(crudRepository);
     private final PostRepository postRepository = new PostRepository(crudRepository);
     private final PhotoRepository photoRepository = new PhotoRepository(crudRepository);
+    private final BrandRepository brandRepository = new BrandRepository(crudRepository);
+    private final ColorRepository colorRepository = new ColorRepository(crudRepository);
+    private final CategoryRepository categoryRepository = new CategoryRepository(crudRepository);
 
     private Post post;
 
@@ -40,8 +54,12 @@ class PostRepositoryTest {
     public void before() {
         post = createPost(postRepository,
                 createUser(userRepository),
-                createCar(carRepository, createEngine(engineRepository)),
-                createPhoto(photoRepository));
+                createCar(carRepository,
+                        createEngine(engineRepository),
+                        createBrand(brandRepository),
+                        createColor(colorRepository)),
+                createPhoto(photoRepository),
+                createCategory(categoryRepository));
     }
 
     @AfterEach
@@ -50,10 +68,13 @@ class PostRepositoryTest {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createQuery("delete from Photo").executeUpdate();
             session.createQuery("delete from Post").executeUpdate();
+            session.createQuery("delete from Photo").executeUpdate();
+            session.createQuery("delete from Category").executeUpdate();
             session.createQuery("delete from Car").executeUpdate();
             session.createQuery("delete from Engine").executeUpdate();
+            session.createQuery("delete from Brand").executeUpdate();
+            session.createQuery("delete from Color").executeUpdate();
             session.createQuery("delete from User").executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -120,8 +141,9 @@ class PostRepositoryTest {
     }
 
     @Test
-    public void whenFindAllPostWithModel() {
-        List<Post> result = postRepository.findAllPostWithModel(post.getCar().getName());
+    public void whenFindAllPostWithBrand() {
+        List<Post> result =
+        postRepository.findAllPostWithModel(post.getCar().getBrand().getName());
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(1, result.size());

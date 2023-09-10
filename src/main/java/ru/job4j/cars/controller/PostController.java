@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.job4j.cars.common.UserSession;
-import ru.job4j.cars.common.model.User;
+import ru.job4j.cars.common.model.user.User;
 
 import javax.servlet.http.HttpSession;
 

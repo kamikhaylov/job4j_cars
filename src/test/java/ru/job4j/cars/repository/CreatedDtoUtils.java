@@ -1,16 +1,32 @@
 package ru.job4j.cars.repository;
 
-import ru.job4j.cars.common.model.Car;
-import ru.job4j.cars.common.model.Engine;
-import ru.job4j.cars.common.model.History;
-import ru.job4j.cars.common.model.Owner;
-import ru.job4j.cars.common.model.Photo;
-import ru.job4j.cars.common.model.Post;
-import ru.job4j.cars.common.model.User;
+import ru.job4j.cars.common.model.car.Brand;
+import ru.job4j.cars.common.model.car.Car;
+import ru.job4j.cars.common.model.car.Color;
+import ru.job4j.cars.common.model.car.Engine;
+import ru.job4j.cars.common.model.post.Category;
+import ru.job4j.cars.common.model.car.History;
+import ru.job4j.cars.common.model.car.Owner;
+import ru.job4j.cars.common.model.post.Photo;
+import ru.job4j.cars.common.model.post.Post;
+import ru.job4j.cars.common.model.user.User;
+import ru.job4j.cars.repository.car.BrandRepository;
+import ru.job4j.cars.repository.car.CarRepository;
+import ru.job4j.cars.repository.car.ColorRepository;
+import ru.job4j.cars.repository.car.EngineRepository;
+import ru.job4j.cars.repository.post.CategoryRepository;
+import ru.job4j.cars.repository.car.HistoryRepository;
+import ru.job4j.cars.repository.car.OwnerRepository;
+import ru.job4j.cars.repository.post.PhotoRepository;
+import ru.job4j.cars.repository.post.PostRepository;
+import ru.job4j.cars.repository.user.UserRepository;
 
 import java.time.LocalDateTime;
 
-public class CreatedDtoUtils {
+public final class CreatedDtoUtils {
+
+    private CreatedDtoUtils() {
+    }
 
     public static Engine createEngine(EngineRepository engineRepository) {
         Engine engine = new Engine();
@@ -18,10 +34,34 @@ public class CreatedDtoUtils {
         return engineRepository.create(engine);
     }
 
-    public static Car createCar(CarRepository carRepository, Engine engine) {
+    public static Category createCategory(CategoryRepository categoryRepository) {
+        Category category = new Category();
+        category.setName("test_category");
+        return categoryRepository.create(category);
+    }
+
+    public static Color createColor(ColorRepository colorRepository) {
+        Color color = new Color();
+        color.setName("test_color");
+        return colorRepository.create(color);
+    }
+
+    public static Brand createBrand(BrandRepository brandRepository) {
+        Brand brand = new Brand();
+        brand.setName("test_name");
+        brand.setModel("test_model");
+        return brandRepository.create(brand);
+    }
+
+    public static Car createCar(CarRepository carRepository, Engine engine,
+                                Brand brand, Color color) {
         Car car = new Car();
-        car.setName("test_car_name");
+        car.setBrand(brand);
         car.setEngine(engine);
+        car.setColor(color);
+        car.setYear(2022);
+        car.setMileage(12000);
+        car.setVin("test_number_vin");
         return carRepository.create(car);
     }
 
@@ -48,13 +88,14 @@ public class CreatedDtoUtils {
     }
 
     public static Post createPost(PostRepository postRepository, User user, Car car,
-                            Photo photo) {
+                                  Photo photo, Category category) {
         Post post = new Post();
         post.setCreated(LocalDateTime.now());
         post.setText("test_text_post");
         post.setUser(user);
         post.setCar(car);
         post.setPhoto(photo);
+        post.setCategory(category);
         return postRepository.create(post);
     }
 

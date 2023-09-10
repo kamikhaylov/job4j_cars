@@ -1,8 +1,9 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.post;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cars.common.model.Photo;
+import ru.job4j.cars.common.model.post.Photo;
+import ru.job4j.cars.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Map;

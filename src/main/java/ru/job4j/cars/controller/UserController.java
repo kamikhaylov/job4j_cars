@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.cars.common.UserSession;
-import ru.job4j.cars.common.model.User;
+import ru.job4j.cars.common.model.user.User;
 import ru.job4j.cars.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

@@ -4,18 +4,21 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <include file="scripts/001_ddl_init_schema_auto_user.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/002_ddl_init_schema_auto_post.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/003_dml_insert_auto_user.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/004_ddl_init_schema_price_history.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/005_ddl_init_participates_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/006_ddl_init_engine_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/007_ddl_init_car_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/008_ddl_init_owners_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/009_ddl_init_history_owner_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/010_ddl_init_history_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/011_ddl_alter_table_auto_post.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/012_ddl_init_photo_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/013_ddl_alter_table_auto_post.sql" relativeToChangelogFile="true"/>
+
+    <include file="scripts/user/001_ddl_init_schema_auto_user.sql" relativeToChangelogFile="true"/>
+
+    <include file="scripts/car/001_ddl_init_car_brand_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/car/002_ddl_init_engine_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/car/003_ddl_init_color_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/car/004_ddl_init_owners_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/car/005_ddl_init_car_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/car/006_ddl_init_history_owner_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/car/007_ddl_init_history_table.sql" relativeToChangelogFile="true"/>
+
+    <include file="scripts/post/001_ddl_init_schema_price_history.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/post/002_ddl_init_photo_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/post/003_ddl_init_post_category_table.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/post/004_ddl_init_schema_auto_post.sql" relativeToChangelogFile="true"/>
+    <include file="scripts/post/005_ddl_init_participates_table.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

@@ -10,7 +10,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.common.model.Photo;
+import ru.job4j.cars.common.model.post.Photo;
+import ru.job4j.cars.repository.post.PhotoRepository;
 
 import java.util.List;
 import java.util.Optional;

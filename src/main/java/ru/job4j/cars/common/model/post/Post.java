@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.model;
+package ru.job4j.cars.common.model.post;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -6,9 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.job4j.cars.common.model.car.Car;
+import ru.job4j.cars.common.model.user.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -71,5 +74,10 @@ public class Post {
     @OneToOne
     @JoinColumn(name = "photo_id")
     private Photo photo;
+
+    /** Идентификатор категории */
+    @ManyToOne
+    @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "category_id_fk"))
+    private Category category;
 
 }

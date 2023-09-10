@@ -24,12 +24,18 @@ public class PostController {
     }
 
     @GetMapping("/my")
-    public String getMyPostList(Model model) {
+    public String getMyPostList(Model model, HttpSession httpSession) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+
         return "post/my";
     }
 
     @GetMapping("/create")
-    public String create(Model model) {
+    public String create(Model model, HttpSession httpSession) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+
         return "post/create";
     }
 

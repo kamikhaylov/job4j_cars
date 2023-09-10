@@ -17,7 +17,7 @@ public final class UserSession {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(UserSession.class.getName());
     private static final String USER = "user";
-    private static final String GUEST = "Гость";
+    private static final String GUEST = "guest";
 
     private UserSession() {
     }

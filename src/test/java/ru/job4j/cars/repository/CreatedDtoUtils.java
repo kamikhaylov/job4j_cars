@@ -96,6 +96,7 @@ public final class CreatedDtoUtils {
         post.setCar(car);
         post.setPhoto(photo);
         post.setCategory(category);
+        post.setIsSold(false);
         return postRepository.create(post);
     }
 

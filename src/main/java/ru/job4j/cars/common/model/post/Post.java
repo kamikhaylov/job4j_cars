@@ -10,6 +10,7 @@ import ru.job4j.cars.common.model.car.Car;
 import ru.job4j.cars.common.model.user.User;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
@@ -79,5 +80,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "category_id_fk"))
     private Category category;
+
+    /** Признак продажи (true - продано, false - нет) */
+    @Column(name = "is_sold")
+    private Boolean isSold;
 
 }

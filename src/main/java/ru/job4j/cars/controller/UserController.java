@@ -27,7 +27,13 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/registration")
-    public String registration() {
+    public String registration(Model model, HttpSession httpSession,
+                               @RequestParam(name = "fail", required = false) Boolean fail,
+                               @RequestParam(name = "success", required = false) Boolean success) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        model.addAttribute("fail", nonNull(fail));
+        model.addAttribute("success", nonNull(success));
         return "user/registration";
     }
 
@@ -36,15 +42,15 @@ public class UserController {
         Optional<User> result = userService.findByLogin(user);
         if (result.isEmpty()) {
             userService.create(user);
-            return "redirect:/user/success";
+            return "redirect:/user/registration?success=true";
         }
         model.addAttribute("message", "");
-        return "redirect:/user/fail";
+        return "redirect:/user/registration?fail=true";
     }
 
     @GetMapping("/success")
     public String success(@ModelAttribute User user) {
-        return "user/success";
+        return "user/с";
     }
 
     @GetMapping("/fail")
@@ -53,8 +59,10 @@ public class UserController {
     }
 
     @GetMapping("/authorization")
-    public String auth(Model model,
+    public String auth(Model model, HttpSession httpSession,
                        @RequestParam(name = "fail", required = false) Boolean fail) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
         model.addAttribute("fail", nonNull(fail));
         return "user/authorization";
     }

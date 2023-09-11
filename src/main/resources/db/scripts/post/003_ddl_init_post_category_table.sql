@@ -5,4 +5,4 @@ create table post_category(
 
 comment on table post_category is 'Категория объявления';
 comment on column post_category.id is 'Идентификатор объявления';
-comment on column post_category.name is 'Наименнование категории';
+comment on column post_category.name is 'Наименование категории';

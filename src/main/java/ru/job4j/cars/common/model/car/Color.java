@@ -32,6 +32,6 @@ public class Color {
     @EqualsAndHashCode.Include
     private int id;
 
-    /** Наименнование цвета */
+    /** Наименование цвета */
     private String name;
 }

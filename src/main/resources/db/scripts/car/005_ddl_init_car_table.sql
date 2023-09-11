@@ -2,7 +2,7 @@ create table car(
     id          serial      primary key,
     brand_id    int         not null unique references car_brand(id),
     engine_id   int         not null unique references engine(id),
-    year        int(4)      not null,
+    year        int         not null,
     mileage     int         not null,
     vin         varchar     not null,
     color_id    int         not null unique references color(id)

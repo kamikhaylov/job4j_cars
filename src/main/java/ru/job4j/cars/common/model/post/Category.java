@@ -32,6 +32,6 @@ public class Category {
     @EqualsAndHashCode.Include
     private int id;
 
-    /** Наименнование категории */
+    /** Наименование категории */
     private String name;
 }

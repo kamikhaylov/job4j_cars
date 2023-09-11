@@ -32,6 +32,6 @@ public class Engine {
     @EqualsAndHashCode.Include
     private int id;
 
-    /** Наименнование двигателя */
+    /** Наименование двигателя */
     private String name;
 }

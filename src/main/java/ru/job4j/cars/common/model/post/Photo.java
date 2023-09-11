@@ -31,7 +31,7 @@ public class Photo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /** Наименнование фото */
+    /** Наименование фото */
     private String name;
 
     /** Путь к фото */

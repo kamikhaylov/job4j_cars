@@ -1,5 +1,6 @@
 package ru.job4j.cars.service;
 
+import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.cars.common.model.user.User;
@@ -12,13 +13,10 @@ import java.util.Optional;
  */
 @ThreadSafe
 @Service
+@AllArgsConstructor
 public class UserService {
 
     private final UserRepository repository;
-
-    public UserService(UserRepository repository) {
-        this.repository = repository;
-    }
 
     /**
      * Добавление нового пользователя

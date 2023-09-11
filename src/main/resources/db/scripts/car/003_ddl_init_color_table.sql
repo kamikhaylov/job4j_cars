@@ -5,4 +5,4 @@ create table color(
 
 comment on table color is 'Цвета автомобилей';
 comment on column color.id is 'Идентификатор цвета';
-comment on column color.name is 'Наименноваание цвета';
+comment on column color.name is 'Наименование цвета';

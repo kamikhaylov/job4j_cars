@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cars.common.UserSession;
+import ru.job4j.cars.common.dto.PhotoDto;
 import ru.job4j.cars.common.dto.PostDto;
 import ru.job4j.cars.common.model.car.Car;
+import ru.job4j.cars.common.model.post.Category;
 import ru.job4j.cars.common.model.user.User;
 import ru.job4j.cars.service.BrandService;
 import ru.job4j.cars.service.CategoryService;
@@ -20,6 +23,8 @@ import ru.job4j.cars.service.EngineService;
 import ru.job4j.cars.service.PostService;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.math.BigDecimal;
 
 @Controller
 @AllArgsConstructor
@@ -36,7 +41,6 @@ public class PostController {
     public String getPostList(Model model, HttpSession httpSession) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
-
         return "post/post";
     }
 
@@ -44,7 +48,6 @@ public class PostController {
     public String getMyPostList(Model model, HttpSession httpSession) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
-
         return "post/my";
     }
 
@@ -64,8 +67,16 @@ public class PostController {
             @SessionAttribute User user,
             @ModelAttribute Car car,
             @RequestParam String description,
-            @RequestParam Integer price) {
-        PostDto post = new PostDto(user, car, description, price);
+            @RequestParam Integer price,
+            @RequestParam("file") MultipartFile file,
+            @RequestParam Integer categoryId) throws IOException {
+        PostDto post = new PostDto();
+        post.setUser(user);
+        post.setCar(car);
+        post.setDescription(description);
+        post.setPrice(BigDecimal.valueOf(price));
+        post.setPhotoDto(new PhotoDto(file.getOriginalFilename(), file.getBytes()));
+        post.setCategoryId(categoryId);
         postService.create(post);
         return "redirect:/post/my";
     }

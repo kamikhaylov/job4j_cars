@@ -11,8 +11,8 @@
                     <div class="p-3 d-flex flex-wrap">
                         <!--Категория-->
                         <div class="p-2" style="width:150px">
-                            <label for="category">Категория</label>
-                            <select class="form-control border border-secondary border-opacity-50" id="category" name="category.id">
+                            <label for="categoryId">Категория</label>
+                            <select class="form-control border border-secondary border-opacity-50" id="categoryId" name="categoryId">
                                 <option></option>
                                 <option th:each="category : ${categories}" th:value="${category.id}"
                                         th:text="${category.name}"></option>
@@ -73,22 +73,23 @@
 
                     <!--Описание-->
                     <div class="p-4" style="max-width:900px">
-                        <label for="text">Описание</label>
-                        <textarea type="text" class="form-control border border-secondary border-opacity-50" rows="10"
-                                  id="text" name="text" required></textarea>
+                        <label for="description">Описание</label>
+                        <textarea type="description" class="form-control border border-secondary border-opacity-50" rows="10"
+                                  id="description" name="description" required></textarea>
                     </div>
 
                     <div class="p-3 d-flex flex-wrap">
                         <!--Стоимость автомобиля-->
                         <div class="p-2" style="width:250px">
-                            <label for="price">Стоимость</label>
+                            <label for="price">Стоимость (руб.)</label>
                             <input type="text" class="form-control border border-secondary border-opacity-50"
                                    id="price" name="price">
                         </div>
                         <!--Фото-->
                         <div class="p-2" style="width:400px">
-                            <label for="image">Фото</label>
-                            <input class="form-control form-control border border-secondary border-opacity-50" type="file" id="image" name="imageDto">
+                            <label for="file">Фото</label>
+                            <input type="file" class="form-control form-control border border-secondary border-opacity-50"
+                                   id="file" name="file">
                         </div>
                     </div>
 

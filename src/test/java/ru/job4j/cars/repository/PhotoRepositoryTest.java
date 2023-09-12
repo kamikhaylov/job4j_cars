@@ -25,7 +25,7 @@ class PhotoRepositoryTest {
     private final SessionFactory sf =
             new MetadataSources(registry).buildMetadata().buildSessionFactory();
     private final CrudRepository crudRepository = new CrudRepository(sf);
-    private final PhotoRepository photoRepository = new PhotoRepository(crudRepository);
+    private final PhotoRepository photoRepository = new PhotoRepository(crudRepository, null);
 
     private Photo photo;
 

@@ -6,7 +6,7 @@ create table auto_post (
     car_id          int          not null references car(id),
     photo_id        int          not null references photo(id),
     category_id     int          not null references post_category(id),
-    is_sold         boolean     not null
+    is_sold         boolean      not null
 );
 
 comment on table auto_post is 'Объявления';

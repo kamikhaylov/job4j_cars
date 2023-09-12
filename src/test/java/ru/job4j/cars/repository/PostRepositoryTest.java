@@ -43,7 +43,7 @@ class PostRepositoryTest {
     private final EngineRepository engineRepository = new EngineRepository(crudRepository);
     private final UserRepository userRepository = new UserRepository(crudRepository);
     private final PostRepository postRepository = new PostRepository(crudRepository);
-    private final PhotoRepository photoRepository = new PhotoRepository(crudRepository);
+    private final PhotoRepository photoRepository = new PhotoRepository(crudRepository, null);
     private final BrandRepository brandRepository = new BrandRepository(crudRepository);
     private final ColorRepository colorRepository = new ColorRepository(crudRepository);
     private final CategoryRepository categoryRepository = new CategoryRepository(crudRepository);

@@ -1,6 +1,7 @@
 package ru.job4j.cars.repository.post;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.common.model.post.Photo;
 import ru.job4j.cars.repository.CrudRepository;
@@ -13,10 +14,18 @@ import java.util.Optional;
  * Методы для работы с таблицей photo.
  */
 @Repository
-@AllArgsConstructor
+//@AllArgsConstructor
 public class PhotoRepository {
 
     private final CrudRepository crudRepository;
+    private final String photoDefault;
+
+    public PhotoRepository(
+            CrudRepository crudRepository,
+            @Value("${file.default.name}") String photoDefault) {
+        this.crudRepository = crudRepository;
+        this.photoDefault = photoDefault;
+    }
 
     /**
      * Сохранить фото автомобиля в базе.
@@ -72,6 +81,13 @@ public class PhotoRepository {
                 "from Photo where id = :fId", Photo.class,
                 Map.of("fId", id)
         );
+    }
+
+    public Photo getDefault() {
+        return crudRepository.optional(
+                "from Photo where name = :fName", Photo.class,
+                Map.of("fName", photoDefault)
+        ).get();
     }
 
 }

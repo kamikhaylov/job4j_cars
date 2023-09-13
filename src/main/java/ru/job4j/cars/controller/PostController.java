@@ -14,7 +14,6 @@ import ru.job4j.cars.common.UserSession;
 import ru.job4j.cars.common.dto.PhotoDto;
 import ru.job4j.cars.common.dto.PostDto;
 import ru.job4j.cars.common.model.car.Car;
-import ru.job4j.cars.common.model.post.Category;
 import ru.job4j.cars.common.model.user.User;
 import ru.job4j.cars.service.BrandService;
 import ru.job4j.cars.service.CategoryService;
@@ -41,6 +40,7 @@ public class PostController {
     public String getPostList(Model model, HttpSession httpSession) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
+        model.addAttribute("posts", postService.getAll());
         return "post/post";
     }
 

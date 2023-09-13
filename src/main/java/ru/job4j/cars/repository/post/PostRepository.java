@@ -1,7 +1,10 @@
 package ru.job4j.cars.repository.post;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import ru.job4j.cars.common.UserSession;
 import ru.job4j.cars.common.model.post.Post;
 import ru.job4j.cars.repository.CrudRepository;
 
@@ -17,6 +20,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PostRepository {
 
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(PostRepository.class.getName());
+
     private final CrudRepository crudRepository;
 
     /**
@@ -26,7 +32,11 @@ public class PostRepository {
      * @return объявление с id.
      */
     public Post create(Post post) {
-        crudRepository.run(session -> session.persist(post));
+        LOGGER.info("Создание объявления в БД, post: " + post);
+
+        crudRepository.run(session -> session.saveOrUpdate(post));
+
+        LOGGER.info("Завершено создание объявления в БД, post.id: " + post.getId());
         return post;
     }
 

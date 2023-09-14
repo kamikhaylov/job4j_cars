@@ -41,7 +41,7 @@ public class PostService {
         post.setCreated(LocalDateTime.now());
         post.setUser(postDto.getUser());
         post.setCar(car);
-        post.setPriceHistory(List.of(priceHistory));
+        post.setPrice(postDto.getPrice());
         post.setIsSold(false);
         post.setParticipates(List.of(postDto.getUser()));
         post.setPhoto(photoService.create(postDto.getPhotoDto()));
@@ -51,9 +51,8 @@ public class PostService {
     }
 
     public List<PostListResponse> getAll() {
-        return postRepository.findAll()
-                .stream()
-                .map(post -> responseConverter.convert(post))
+        return postRepository.findAll().stream()
+                .map(responseConverter::convert)
                 .collect(Collectors.toList());
     }
 

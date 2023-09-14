@@ -23,6 +23,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,9 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "category_id_fk"))
     private Category category;
+
+    /** Стоимость (руб.) */
+    private BigDecimal price;
 
     /** Признак продажи (true - продано, false - нет) */
     @Column(name = "is_sold")

@@ -3,6 +3,7 @@ package ru.job4j.cars.common.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.job4j.cars.common.model.post.Photo;
 
 import java.math.BigDecimal;
 
@@ -16,4 +17,5 @@ public class PostListResponse {
     private Integer year;
     private Integer mileage;
     private BigDecimal price;
+    private Photo photo;
 }

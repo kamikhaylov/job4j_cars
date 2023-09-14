@@ -16,7 +16,8 @@ public class PostResponseConverter {
         result.setModel(source.getCar().getBrand().getModel());
         result.setYear(source.getCar().getYear());
         result.setMileage(source.getCar().getMileage());
-        //result.setPrice(source.getPriceHistory().get(0).getAfter());
+        result.setPhoto(source.getPhoto());
+        result.setPrice(source.getPrice());
         return result;
     }
 }

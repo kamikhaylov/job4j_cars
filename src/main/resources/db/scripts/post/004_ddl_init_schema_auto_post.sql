@@ -6,6 +6,7 @@ create table auto_post (
     car_id          int          not null references car(id),
     photo_id        int          not null references photo(id),
     category_id     int          not null references post_category(id),
+    price           int          not null,
     is_sold         boolean      not null
 );
 
@@ -17,4 +18,5 @@ comment on column auto_post.auto_user_id is 'Пользователь';
 comment on column auto_post.car_id is 'Автомобиль';
 comment on column auto_post.photo_id is 'Фото';
 comment on column auto_post.category_id is 'Категория объявления';
+comment on column auto_post.price is 'Стоимость (руб.)';
 comment on column auto_post.is_sold is 'Признак продажи (true - продано, false - нет)';

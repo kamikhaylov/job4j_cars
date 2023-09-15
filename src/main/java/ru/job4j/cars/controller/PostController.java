@@ -70,14 +70,10 @@ public class PostController {
             @RequestParam Integer price,
             @RequestParam("file") MultipartFile file,
             @RequestParam Integer categoryId) throws IOException {
-        PostDto post = new PostDto();
-        post.setUser(user);
-        post.setCar(car);
-        post.setDescription(description);
-        post.setPrice(BigDecimal.valueOf(price));
-        post.setPhotoDto(new PhotoDto(file.getOriginalFilename(), file.getBytes()));
-        post.setCategoryId(categoryId);
-        postService.create(post);
+        postService.create(new PostDto(
+                user, car, description, BigDecimal.valueOf(price),
+                new PhotoDto(file.getOriginalFilename(), file.getBytes()),
+                categoryId));
         return "redirect:/post/my";
     }
 

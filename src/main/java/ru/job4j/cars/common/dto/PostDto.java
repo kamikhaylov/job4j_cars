@@ -18,4 +18,6 @@ public class PostDto {
     private BigDecimal price;
     private PhotoDto photoDto;
     private Integer categoryId;
+
+
 }

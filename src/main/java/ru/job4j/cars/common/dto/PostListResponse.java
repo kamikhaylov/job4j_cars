@@ -18,4 +18,5 @@ public class PostListResponse {
     private Integer mileage;
     private BigDecimal price;
     private Photo photo;
+    private String text;
 }

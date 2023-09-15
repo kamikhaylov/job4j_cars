@@ -1,6 +1,5 @@
 package ru.job4j.cars.repository.post;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cars.common.model.post.Photo;
@@ -14,7 +13,6 @@ import java.util.Optional;
  * Методы для работы с таблицей photo.
  */
 @Repository
-//@AllArgsConstructor
 public class PhotoRepository {
 
     private final CrudRepository crudRepository;

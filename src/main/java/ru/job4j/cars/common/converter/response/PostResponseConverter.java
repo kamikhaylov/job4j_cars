@@ -18,6 +18,7 @@ public class PostResponseConverter {
         result.setMileage(source.getCar().getMileage());
         result.setPhoto(source.getPhoto());
         result.setPrice(source.getPrice());
+        result.setText(source.getText());
         return result;
     }
 }

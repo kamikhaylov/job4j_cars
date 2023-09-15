@@ -8,7 +8,6 @@ import ru.job4j.cars.common.dto.PostDto;
 import ru.job4j.cars.common.dto.PostListResponse;
 import ru.job4j.cars.common.model.car.Car;
 import ru.job4j.cars.common.model.post.Post;
-import ru.job4j.cars.common.model.post.PriceHistory;
 import ru.job4j.cars.repository.post.PostRepository;
 
 import javax.transaction.Transactional;
@@ -26,16 +25,23 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final CarService carService;
-    private final PriceHistoryService priceHistoryService;
     private final PhotoService photoService;
     private final CategoryService categoryService;
     private final PostResponseConverter responseConverter;
 
     @Transactional
-    public boolean create(PostDto postDto) {
-        Car car = carService.create(postDto.getCar());
-        PriceHistory priceHistory = priceHistoryService.create(postDto.getPrice());
+    public Post create(PostDto postDto) {
+        return postRepository.create(createPost(postDto));
+    }
 
+    public List<PostListResponse> getAll() {
+        return postRepository.findAll().stream()
+                .map(responseConverter::convert)
+                .collect(Collectors.toList());
+    }
+
+    private Post createPost(PostDto postDto) {
+        Car car = carService.create(postDto.getCar());
         Post post = new Post();
         post.setText(postDto.getDescription());
         post.setCreated(LocalDateTime.now());
@@ -46,14 +52,7 @@ public class PostService {
         post.setParticipates(List.of(postDto.getUser()));
         post.setPhoto(photoService.create(postDto.getPhotoDto()));
         post.setCategory(categoryService.getById(postDto.getCategoryId()));
-        Post result = postRepository.create(post);
-        return true;
-    }
-
-    public List<PostListResponse> getAll() {
-        return postRepository.findAll().stream()
-                .map(responseConverter::convert)
-                .collect(Collectors.toList());
+        return post;
     }
 
 }

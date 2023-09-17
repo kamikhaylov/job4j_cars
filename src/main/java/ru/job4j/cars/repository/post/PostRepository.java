@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import ru.job4j.cars.common.UserSession;
 import ru.job4j.cars.common.model.post.Post;
 import ru.job4j.cars.repository.CrudRepository;
 
@@ -73,6 +72,19 @@ public class PostRepository {
     }
 
     /**
+     * Список не проданных объявлений по id.
+     *
+     * @return список объявлений.
+     */
+    public List<Post> findAllIsNotSold() {
+        return crudRepository.query(
+                "from Post  "
+                        + "where is_sold = false "
+                        + "order by id asc",
+                Post.class);
+    }
+
+    /**
      * Найти объявление по ID
      *
      * @param id ID
@@ -92,7 +104,9 @@ public class PostRepository {
      */
     public List<Post> findAllPostAtLastDay() {
         return crudRepository.query(
-                "from Post where created >= :fDate",
+                "from Post where created >= :fDate "
+                        + "and is_sold = false "
+                        + "order by id asc",
                 Post.class,
                 Map.of("fDate", LocalDateTime.now().minusDays(1)));
     }
@@ -104,7 +118,9 @@ public class PostRepository {
      */
     public List<Post> findAllPostWithPhoto() {
         return crudRepository.query(
-                "from Post where photo_id is not null",
+                "from Post where photo_id is not null "
+                        + "and is_sold = false "
+                        + "order by id asc",
                 Post.class);
     }
 
@@ -117,7 +133,38 @@ public class PostRepository {
         return crudRepository.query(
                 "from Post p "
                         + "join fetch p.car "
-                        + "where p.car.brand.name = :fName",
+                        + "where p.car.brand.name = :fName "
+                        + "and is_sold = false "
+                        + "order by id asc",
+                Post.class,
+                Map.of("fName", name));
+    }
+
+    /**
+     * Получить объявления по пользователю.
+     *
+     * @return объявления.
+     */
+    public List<Post> findAllPostByUserId(int id) {
+        return crudRepository.query(
+                "from Post where auto_user_id = :fId "
+                        + "order by id asc",
+                Post.class,
+                Map.of("fId", id));
+    }
+
+    /**
+     * Получить объявления по категории.
+     *
+     * @return объявления.
+     */
+    public List<Post> findAllPostByCategoryName(String name) {
+        System.out.println("name = " + name);
+        return crudRepository.query(
+                "from Post "
+                        + "where category.name = :fName "
+                        + "and is_sold = false "
+                        + "order by id asc",
                 Post.class,
                 Map.of("fName", name));
     }

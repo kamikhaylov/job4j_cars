@@ -3,7 +3,9 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
+import ru.job4j.cars.common.converter.response.DetailsResponseConverter;
 import ru.job4j.cars.common.converter.response.PostResponseConverter;
+import ru.job4j.cars.common.dto.DetailsResponse;
 import ru.job4j.cars.common.dto.PostDto;
 import ru.job4j.cars.common.dto.PostListResponse;
 import ru.job4j.cars.common.model.car.Car;
@@ -27,7 +29,8 @@ public class PostService {
     private final CarService carService;
     private final PhotoService photoService;
     private final CategoryService categoryService;
-    private final PostResponseConverter responseConverter;
+    private final PostResponseConverter postResponseConverter;
+    private final DetailsResponseConverter detailsResponseConverter;
 
     @Transactional
     public Post create(PostDto postDto) {
@@ -36,8 +39,36 @@ public class PostService {
 
     public List<PostListResponse> getAll() {
         return postRepository.findAll().stream()
-                .map(responseConverter::convert)
+                .map(postResponseConverter::convert)
                 .collect(Collectors.toList());
+    }
+
+    public List<PostListResponse> getAllIsNotSold() {
+        return postRepository.findAllIsNotSold().stream()
+                .map(postResponseConverter::convert)
+                .collect(Collectors.toList());
+    }
+
+    public List<PostListResponse> getAllForDay() {
+        return postRepository.findAllPostAtLastDay().stream()
+                .map(postResponseConverter::convert)
+                .collect(Collectors.toList());
+    }
+
+    public List<PostListResponse> findAllPostByCategoryName(String name) {
+        return postRepository.findAllPostByCategoryName(name).stream()
+                .map(postResponseConverter::convert)
+                .collect(Collectors.toList());
+    }
+
+    public List<PostListResponse> getAllByUserId(int id) {
+        return postRepository.findAllPostByUserId(id).stream()
+                .map(postResponseConverter::convert)
+                .collect(Collectors.toList());
+    }
+
+    public DetailsResponse getById(int postId, int userId) {
+        return detailsResponseConverter.convert(postRepository.findById(postId).get(), userId);
     }
 
     private Post createPost(PostDto postDto) {

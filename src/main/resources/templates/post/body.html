@@ -1,0 +1,18 @@
+<div th:fragment="body">
+    <td width="25%">
+        <a th:href="@{|/post/details/${post.id}|}">
+            <img th:src="@{/photo/{id}(id=${post.photo.id})}" alt="default" class="w-100"
+                 style="height:160px; object-fit: contain;">
+        </a>
+    </td>
+    <td style="max-width:100px" class="text-wrap align-middle" width="20%" th:text="${post.text}"/>
+    <td class="text-center align-middle" width="10%" th:text="${post.brand}"/>
+    <td class="text-center align-middle" width="10%" th:text="${post.model}"/>
+    <td class="text-center align-middle" width="5%" th:text="${post.year}"/>
+    <td class="text-center align-middle" width="15%">
+        <span th:text="${#numbers.formatDecimal(post.mileage, 0, 'WHITESPACE', 0, 'WHITESPACE')}"></span> км
+    </td>
+    <td class="text-center align-middle" width="15%">
+        <span th:text="${#numbers.formatDecimal(post.price, 0, 'WHITESPACE', 0, 'WHITESPACE')}"></span> руб.
+    </td>
+</div>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,38 @@ public class PostController {
     public String getPostList(Model model, HttpSession httpSession) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
+        model.addAttribute("posts", postService.getAllIsNotSold());
+        return "post/post";
+    }
+
+    @GetMapping("/list/day")
+    public String getPostListForDay(Model model, HttpSession httpSession) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        model.addAttribute("posts", postService.getAllForDay());
+        return "post/post";
+    }
+
+    @GetMapping("/list/withMileage")
+    public String getPostListWithMileage(Model model, HttpSession httpSession) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        model.addAttribute("posts", postService.findAllPostByCategoryName("С пробегом"));
+        return "post/post";
+    }
+
+    @GetMapping("/list/new")
+    public String getPostListNew(Model model, HttpSession httpSession) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        model.addAttribute("posts", postService.findAllPostByCategoryName("Новые"));
+        return "post/post";
+    }
+
+    @GetMapping("/list/all")
+    public String getPostListAll(Model model, HttpSession httpSession) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
         model.addAttribute("posts", postService.getAll());
         return "post/post";
     }
@@ -48,8 +81,16 @@ public class PostController {
     public String getMyPostList(Model model, HttpSession httpSession) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
-        model.addAttribute("posts", postService.getAll());
-        return "post/post";
+        model.addAttribute("posts", postService.getAllByUserId(user.getId()));
+        return "post/my";
+    }
+
+    @GetMapping("/details/{id}")
+    public String getDetails(Model model, HttpSession httpSession, @PathVariable("id") int id) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        model.addAttribute("post", postService.getById(id, user.getId()));
+        return "post/details";
     }
 
     @GetMapping("/create")

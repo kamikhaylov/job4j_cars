@@ -4,38 +4,31 @@
 <body>
     <div class="container">
         <div th:replace="block/navbar.html :: navbar"></div>
+        <div>
+            <a th:href="@{/post/list}">
+                <button type="button" class="btn btn-secondary">Все</button>
+            </a>
+            <a th:href="@{/post/list/day}">
+                <button type="button" class="btn btn-secondary">За день</button>
+            </a>
+            <a th:href="@{/post/list/withMileage}">
+                <button type="button" class="btn btn-secondary">С пробегом</button>
+            </a>
+            <a th:href="@{/post/list/new}">
+                <button type="button" class="btn btn-secondary">Новые</button>
+            </a>
+            <a th:href="@{/post/list/all}">
+                <button type="button" class="btn btn-secondary">Включая проданные</button>
+            </a>
+        </div>
+        <br>
         <div class="container-fluid px-0 py-2" style="max-width:1600px">
             <div>
                 <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col" class="text-center">Фото</th>
-                            <th scope="col" class="text-center">Описание</th>
-                            <th scope="col" class="text-center">Марка</th>
-                            <th scope="col" class="text-center">Модель</th>
-                            <th scope="col" class="text-center">Год</th>
-                            <th scope="col" class="text-center">Пробег</th>
-                            <th scope="col" class="text-center">Стоимость</th>
-                        </tr>
-                    </thead>
+                    <div th:replace="post/thead.html :: thead"></div>
                     <tbody>
                         <tr th:each="post: ${posts}">
-                            <td width="25%">
-                                <a th:href="@{|/post/details/${post.id}|}">
-                                    <img th:src="@{/photo/{id}(id=${post.photo.id})}" alt="default" class="w-100"
-                                         style="height:160px; object-fit: contain;">
-                                </a>
-                            </td>
-                            <td style="max-width:100px" class="text-wrap align-middle" width="20%" th:text="${post.text}"/>
-                            <td class="text-center align-middle" width="10%" th:text="${post.brand}"/>
-                            <td class="text-center align-middle" width="10%" th:text="${post.model}"/>
-                            <td class="text-center align-middle" width="5%" th:text="${post.year}"/>
-                            <td class="text-center align-middle" width="15%">
-                                <span th:text="${#numbers.formatDecimal(post.mileage, 0, 'WHITESPACE', 0, 'WHITESPACE')}"></span> км
-                            </td>
-                            <td class="text-center align-middle" width="15%">
-                                <span th:text="${#numbers.formatDecimal(post.price, 0, 'WHITESPACE', 0, 'WHITESPACE')}"></span> руб.
-                            </td>
+                            <div th:replace="post/body.html :: body"></div>
                         </tr>
                     </tbody>
                 </table>

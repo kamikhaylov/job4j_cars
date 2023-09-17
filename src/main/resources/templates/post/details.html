@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="block/head.html :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="block/navbar.html :: navbar"></div>
+    <div th:if="${post.showAction == true}">
+        <a th:href="@{/post/edit}">
+            <button type="button" class="btn btn-secondary">Редактировать</button>
+        </a>
+        <a th:if="${post.isSold == false}" th:href="@{/post/isSold}">
+            <button type="button" class="btn btn-secondary">Снять с продажи</button>
+        </a>
+        <a th:if="${post.isSold == true}" th:href="@{/post/isNotSold}">
+            <button type="button" class="btn btn-secondary">Вернуть в продажу</button>
+        </a>
+        <a th:href="@{/post/delete}">
+            <button type="button" class="btn btn-secondary">Удалить</button>
+        </a>
+    </div>
+    <br>
+    <div class="container-fluid px-0 py-2" style="max-width:1100px;">
+        <table class="table">
+            <tr>
+                <td>
+                    <img th:src="@{/photo/{id}(id=${post.photo.id})}" alt="default" class="w-100"
+                         style="height:500px;">
+                </td>
+                <td style="width:270px">
+                    <ul>
+                        <li><b>Стоимость: </b><span th:text="${#numbers.formatDecimal(post.price, 0, 'WHITESPACE', 0, 'WHITESPACE')}"></span> руб.</li>
+                        <li><b>Марка: </b><span th:text="${post.brand}"></span></li>
+                        <li><b>Модель: </b><span th:text="${post.model}"></span></li>
+                        <li><b>Год: </b> <span th:text="${post.year}"></span></li>
+                        <li><b>Цвет: </b> <span th:text="${post.color}"></span></li>
+                        <li><b>Двигатель: </b> <span th:text="${post.engine}"></span></li>
+                        <li><b>Пробег: </b> <span th:text="${#numbers.formatDecimal(post.mileage, 0, 'WHITESPACE', 0, 'WHITESPACE')}"> км</span></li>
+                        <li><b>VIN: </b> <span th:text="${post.vin}"></span></li>
+                        <li><b>Статус: </b>
+                            <span th:if="${post.isSold == true}">Продано</span>
+                            <span th:if="${post.isSold == false}">Не продано</span>
+                        </li>
+                        <li><b>Описание: </b> <span th:text="${post.text}"></span></li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

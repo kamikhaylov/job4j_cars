@@ -9,33 +9,33 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th class="col-3 p-2 text-center">Фото</th>
-                            <th class="col-3 p-2 text-center">Описание</th>
-                            <th class="col-3 p-2 text-center">Марка</th>
-                            <th class="col-3 p-2 text-center">Модель</th>
-                            <th class="col-3 p-2 text-center">Год</th>
-                            <th class="col-3 p-2 text-center">Пробег (км)</th>
-                            <th class="col-3 p-2 text-center">Стоимость (руб.)</th>
+                            <th scope="col" class="text-center">Фото</th>
+                            <th scope="col" class="text-center">Описание</th>
+                            <th scope="col" class="text-center">Марка</th>
+                            <th scope="col" class="text-center">Модель</th>
+                            <th scope="col" class="text-center">Год</th>
+                            <th scope="col" class="text-center">Пробег</th>
+                            <th scope="col" class="text-center">Стоимость</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="post: ${posts}">
-                            <td width="20%">
+                            <td width="25%">
                                 <a th:href="@{|/post/details/${post.id}|}">
                                     <img th:src="@{/photo/{id}(id=${post.photo.id})}" alt="default" class="w-100"
                                          style="height:160px; object-fit: contain;">
                                 </a>
                             </td>
-                            <td style="max-width:100px" class="text-wrap border-end border-secondary border-opacity-25" width="20%" th:text="${post.text}"/>
-                            <td class="p-2 border-end border-secondary border-opacity-25 text-center" width="10%" th:text="${post.brand}"/>
-                            <td class="p-2 border-end border-secondary border-opacity-25 text-center" width="10%">
-                                <a th:href="@{|/post/details/${post.id}|}">
-                                    <span th:text="${post.model}"></span>
-                                </a>
+                            <td style="max-width:100px" class="text-wrap align-middle" width="20%" th:text="${post.text}"/>
+                            <td class="text-center align-middle" width="10%" th:text="${post.brand}"/>
+                            <td class="text-center align-middle" width="10%" th:text="${post.model}"/>
+                            <td class="text-center align-middle" width="5%" th:text="${post.year}"/>
+                            <td class="text-center align-middle" width="15%">
+                                <span th:text="${#numbers.formatDecimal(post.mileage, 0, 'WHITESPACE', 0, 'WHITESPACE')}"></span> км
                             </td>
-                            <td class="p-2 border-end border-secondary border-opacity-25 text-center" width="20%" th:text="${post.year}"/>
-                            <td class="p-2 border-end border-secondary border-opacity-25 text-center" width="20%" th:text="${post.mileage}"/>
-                            <td class="p-2 border-end border-secondary border-opacity-25 text-center" width="20%" th:text="${post.price}"/>
+                            <td class="text-center align-middle" width="15%">
+                                <span th:text="${#numbers.formatDecimal(post.price, 0, 'WHITESPACE', 0, 'WHITESPACE')}"></span> руб.
+                            </td>
                         </tr>
                     </tbody>
                 </table>

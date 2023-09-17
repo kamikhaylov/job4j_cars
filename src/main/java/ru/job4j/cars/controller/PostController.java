@@ -48,7 +48,8 @@ public class PostController {
     public String getMyPostList(Model model, HttpSession httpSession) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
-        return "post/my";
+        model.addAttribute("posts", postService.getAll());
+        return "post/post";
     }
 
     @GetMapping("/create")

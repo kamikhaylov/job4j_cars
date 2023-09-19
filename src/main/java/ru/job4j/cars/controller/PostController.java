@@ -119,4 +119,12 @@ public class PostController {
         return "redirect:/post/my";
     }
 
+    @GetMapping("/{id}/update")
+    public String update(Model model, HttpSession httpSession, @PathVariable("id") int id) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        model.addAttribute("post.id", id);
+        return "post/update";
+    }
+
 }

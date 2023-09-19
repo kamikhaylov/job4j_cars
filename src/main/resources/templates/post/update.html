@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="block/head.html :: head"></head>
+<body>
+<div class="container">
+    <div th:replace="block/navbar.html :: navbar"></div>
+
+    <div class="container-fluid px-0 py-3">
+        <div class="border border-secondary border-opacity-50">
+            <h5 class="text-center fw-semibold p-2">Отредактируйте информацию об автомобиле</h5>
+            <form th:action="@{/post/${post.id}/update}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" th:field="${id}">
+
+                <div class="p-4" style="max-width:900px">
+                    <label for="description">Описание</label>
+                    <textarea type="description" class="form-control border border-secondary border-opacity-50" rows="10"
+                              id="description" name="description" required></textarea>
+                </div>
+
+                <div class="p-3 d-flex flex-wrap">
+                    <div class="p-2" style="width:250px">
+                        <label for="price">Стоимость (руб.)</label>
+                        <input type="text" class="form-control border border-secondary border-opacity-50"
+                               id="price" name="price">
+                    </div>
+                </div>
+
+<!--                <a th:if="${post.isSold == false}" th:href="@{|/post/${post.id}/isSold|}">-->
+<!--                    <button type="button" class="btn btn-secondary">Снять с продажи</button>-->
+<!--                </a>-->
+<!--                <a th:if="${post.isSold == true}" th:href="@{/post/${|post.id}/isNotSold|}">-->
+<!--                    <button type="button" class="btn btn-secondary">Вернуть в продажу</button>-->
+<!--                </a>-->
+                <div class="d-flex p-4 justify-content-end">
+                    <button type="submit" class="btn btn-primary mt-3">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

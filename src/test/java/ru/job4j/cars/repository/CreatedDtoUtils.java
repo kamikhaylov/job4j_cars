@@ -21,6 +21,7 @@ import ru.job4j.cars.repository.post.PhotoRepository;
 import ru.job4j.cars.repository.post.PostRepository;
 import ru.job4j.cars.repository.user.UserRepository;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public final class CreatedDtoUtils {
@@ -97,6 +98,7 @@ public final class CreatedDtoUtils {
         post.setPhoto(photo);
         post.setCategory(category);
         post.setIsSold(false);
+        post.setPrice(BigDecimal.TEN);
         return postRepository.create(post);
     }
 

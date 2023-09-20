@@ -141,12 +141,14 @@ class PostRepositoryTest {
     }
 
     @Test
-    public void whenFindAllPostWithBrand() {
+    public void whenFindAllPostWithModel() {
         List<Post> result =
-        postRepository.findAllPostWithModel(post.getCar().getBrand().getName());
+                postRepository.findAllPostWithModel(post.getCar().getBrand().getModel());
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(1, result.size());
         Assertions.assertEquals(post.getText(), result.get(0).getText());
+        Assertions.assertEquals(post.getCar().getBrand().getModel(),
+                result.get(0).getCar().getBrand().getModel());
     }
 }

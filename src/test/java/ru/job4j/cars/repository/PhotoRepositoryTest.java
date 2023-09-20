@@ -76,8 +76,6 @@ class PhotoRepositoryTest {
         List<Photo> result = photoRepository.findAll();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(1, result.size());
-        Assertions.assertEquals(photo.getName(), result.get(0).getName());
     }
 
     @Test

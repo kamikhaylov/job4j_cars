@@ -36,9 +36,9 @@ public class PhotoService {
     }
 
     public Photo create(PhotoDto photoDto) {
-        return isNotEmpty(photoDto.getName()) ?
-                photoRepository.create(createPhoto(photoDto)) :
-                photoRepository.getDefault();
+        return isNotEmpty(photoDto.getName())
+                ? photoRepository.create(createPhoto(photoDto))
+                : photoRepository.getDefault();
     }
 
     public Optional<PhotoDto> getById(int id) {

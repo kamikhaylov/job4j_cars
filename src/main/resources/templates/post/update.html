@@ -26,6 +26,9 @@
                 </div>
 
                 <div class="p-4 d-flex justify-content-end">
+                    <a th:href="@{|/post/delete/${post.id}|}">
+                        <button type="button" class="btn btn-secondary mr-2">Удалить</button>
+                    </a>
                     <a th:if="${post.isSold == false}" th:href="@{|/post/isSold/${post.id}}|}">
                         <button type="button" class="btn btn-secondary mr-2">Снять с продажи</button>
                     </a>

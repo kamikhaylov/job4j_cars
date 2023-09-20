@@ -119,7 +119,7 @@ public class PostController {
         return "redirect:/post/my";
     }
 
-    @GetMapping("/{id}/update")
+    @GetMapping("/update/{id}")
     public String update(Model model, HttpSession httpSession, @PathVariable("id") int id) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
@@ -160,5 +160,16 @@ public class PostController {
         model.addAttribute("user", user);
         postService.updateIsNotSold(id);
         return "redirect:/post/details/" + id;
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(
+            Model model,
+            HttpSession httpSession,
+            @PathVariable("id") int id) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        postService.delete(id);
+        return "redirect:/post/my/";
     }
 }

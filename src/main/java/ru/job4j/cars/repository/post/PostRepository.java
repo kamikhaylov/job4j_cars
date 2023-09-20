@@ -131,9 +131,8 @@ public class PostRepository {
      */
     public List<Post> findAllPostWithModel(String name) {
         return crudRepository.query(
-                "from Post p "
-                        + "join fetch p.car "
-                        + "where p.car.brand.name = :fName "
+                "from Post "
+                        + "where car.brand.model = :fName "
                         + "and is_sold = false "
                         + "order by id asc",
                 Post.class,
@@ -159,7 +158,6 @@ public class PostRepository {
      * @return объявления.
      */
     public List<Post> findAllPostByCategoryName(String name) {
-        System.out.println("name = " + name);
         return crudRepository.query(
                 "from Post "
                         + "where category.name = :fName "

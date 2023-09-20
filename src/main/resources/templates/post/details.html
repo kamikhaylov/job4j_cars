@@ -5,16 +5,16 @@
 <div class="container">
     <div th:replace="block/navbar.html :: navbar"></div>
     <div th:if="${post.showAction == true}">
-        <a th:href="@{|/post/${post.id}/update|}">
+        <a th:href="@{|/post/update/${post.id}|}">
             <button type="button" class="btn btn-secondary">Редактировать</button>
         </a>
-        <a th:if="${post.isSold == false}" th:href="@{|/post/isSold/${post.id}}|">
+        <a th:if="${post.isSold == false}" th:href="@{|/post/isSold/${post.id}|}">
             <button type="button" class="btn btn-secondary">Снять с продажи</button>
         </a>
-        <a th:if="${post.isSold == true}" th:href="@{|/post/isNotSold/${post.id}}|">
+        <a th:if="${post.isSold == true}" th:href="@{|/post/isNotSold/${post.id}|}">
             <button type="button" class="btn btn-secondary">Вернуть в продажу</button>
         </a>
-        <a th:href="@{|/post/${post.id}/delete|}">
+        <a th:href="@{|/post/delete/${post.id}|}">
             <button type="button" class="btn btn-secondary">Удалить</button>
         </a>
     </div>

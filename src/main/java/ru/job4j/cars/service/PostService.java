@@ -92,6 +92,10 @@ public class PostService {
         postRepository.update(post);
     }
 
+    public void delete(int id) {
+        postRepository.delete(id);
+    }
+
     private Post createPost(PostDto postDto) {
         Car car = carService.create(postDto.getCar());
         Post post = new Post();

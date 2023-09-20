@@ -13,6 +13,7 @@ import ru.job4j.cars.common.model.post.Post;
 import ru.job4j.cars.repository.post.PostRepository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,6 +70,26 @@ public class PostService {
 
     public DetailsResponse getById(int postId, int userId) {
         return detailsResponseConverter.convert(postRepository.findById(postId).get(), userId);
+    }
+
+    @Transactional
+    public void update(int id, String text, BigDecimal price) {
+        Post post = postRepository.findById(id).get();
+        post.setText(text);
+        post.setPrice(price);
+        postRepository.update(post);
+    }
+
+    public void updateIsSold(int id) {
+        Post post = postRepository.findById(id).get();
+        post.setIsSold(true);
+        postRepository.update(post);
+    }
+
+    public void updateIsNotSold(int id) {
+        Post post = postRepository.findById(id).get();
+        post.setIsSold(false);
+        postRepository.update(post);
     }
 
     private Post createPost(PostDto postDto) {

@@ -28,7 +28,9 @@
                     Пользователь успешно зарегистрирован
                 </div>
                 <div th:if="${!success}">
-                    <button type="submit" class="btn btn-primary mt-3">Регистрация</button>
+                    <div class="p-4 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">Регистрация</button>
+                    </div>
                 </div>
             </form>
         </div>

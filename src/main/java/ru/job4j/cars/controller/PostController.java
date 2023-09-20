@@ -108,12 +108,12 @@ public class PostController {
     public String create(
             @SessionAttribute User user,
             @ModelAttribute Car car,
-            @RequestParam String description,
+            @RequestParam String text,
             @RequestParam Integer price,
             @RequestParam("file") MultipartFile file,
             @RequestParam Integer categoryId) throws IOException {
         postService.create(new PostDto(
-                user, car, description, BigDecimal.valueOf(price),
+                user, car, text, BigDecimal.valueOf(price),
                 new PhotoDto(file.getOriginalFilename(), file.getBytes()),
                 categoryId));
         return "redirect:/post/my";
@@ -123,8 +123,42 @@ public class PostController {
     public String update(Model model, HttpSession httpSession, @PathVariable("id") int id) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);
-        model.addAttribute("post.id", id);
+        model.addAttribute("post", postService.getById(id, user.getId()));
         return "post/update";
     }
 
+    @PostMapping("/update")
+    public String update(
+            Model model,
+            HttpSession httpSession,
+            @RequestParam Integer id,
+            @RequestParam String text,
+            @RequestParam Integer price) throws IOException {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        postService.update(id, text, BigDecimal.valueOf(price));
+        return "redirect:/post/details/" + id;
+    }
+
+    @GetMapping("/isSold/{id}")
+    public String isSold(
+            Model model,
+            HttpSession httpSession,
+            @PathVariable("id") int id) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        postService.updateIsSold(id);
+        return "redirect:/post/details/" + id;
+    }
+
+    @GetMapping("/isNotSold/{id}")
+    public String isNotSold(
+            Model model,
+            HttpSession httpSession,
+            @PathVariable("id") int id) {
+        User user = UserSession.getUser(model, httpSession);
+        model.addAttribute("user", user);
+        postService.updateIsNotSold(id);
+        return "redirect:/post/details/" + id;
+    }
 }

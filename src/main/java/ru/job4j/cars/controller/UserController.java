@@ -19,6 +19,9 @@ import java.util.Optional;
 
 import static java.util.Objects.nonNull;
 
+/**
+ * Контроллер пользователей
+ */
 @Controller
 @AllArgsConstructor
 @RequestMapping("/user")
@@ -50,7 +53,7 @@ public class UserController {
 
     @GetMapping("/success")
     public String success(@ModelAttribute User user) {
-        return "user/с";
+        return "user/success";
     }
 
     @GetMapping("/fail")
@@ -59,7 +62,7 @@ public class UserController {
     }
 
     @GetMapping("/authorization")
-    public String auth(Model model, HttpSession httpSession,
+    public String authorization(Model model, HttpSession httpSession,
                        @RequestParam(name = "fail", required = false) Boolean fail) {
         User user = UserSession.getUser(model, httpSession);
         model.addAttribute("user", user);

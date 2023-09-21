@@ -5,6 +5,9 @@ import org.springframework.stereotype.Component;
 import ru.job4j.cars.common.dto.PostListResponse;
 import ru.job4j.cars.common.model.post.Post;
 
+/**
+ * Конвертер ответа сервиса получения списка объявлений
+ */
 @Component
 @AllArgsConstructor
 public class PostResponseConverter {

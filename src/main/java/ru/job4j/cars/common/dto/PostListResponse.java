@@ -7,6 +7,9 @@ import ru.job4j.cars.common.model.post.Photo;
 
 import java.math.BigDecimal;
 
+/**
+ * ДТО ответа сервиса списка объявлений
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -8,6 +8,9 @@ import ru.job4j.cars.common.model.user.User;
 
 import java.math.BigDecimal;
 
+/**
+ * ДТО объявления
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

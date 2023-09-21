@@ -29,7 +29,7 @@
 - Создать БД cars хост `jdbc:postgresql://localhost:5432/cars`
 - Собрать jar с приложением, выполнив команду `mvn install`
 - Запустить приложение, выполнив команду: `java -jar job4j_cars`
-- Перейти в браузере по ссылке `http://localhost:8080/index`
+- Перейти в браузере по ссылке `http://localhost:8080/post/list`
 
 [actions-image]: https://github.com/kamikhaylov/job4j_cars/actions/workflows/maven.yml/badge.svg
 [actions-url]: https://github.com/kamikhaylov/job4j_cars/actions/workflows/maven.yml

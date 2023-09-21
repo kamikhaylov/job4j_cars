@@ -26,6 +26,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+/**
+ * Коонтроллер объявлений
+ */
 @Controller
 @AllArgsConstructor
 @RequestMapping("/post")

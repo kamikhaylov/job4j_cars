@@ -7,7 +7,6 @@ import ru.job4j.cars.common.model.post.Category;
 import ru.job4j.cars.repository.post.CategoryRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Сервис для категорий

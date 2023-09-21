@@ -24,15 +24,12 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
     private final String directory;
-    private final String defaultImage;
 
     public PhotoService(
             PhotoRepository photoRepository,
-            @Value("${file.directory}") String directory,
-            @Value("${file.default.name}") String defaultImage) {
+            @Value("${file.directory}") String directory) {
         this.photoRepository = photoRepository;
         this.directory = directory;
-        this.defaultImage = defaultImage;
     }
 
     public Photo create(PhotoDto photoDto) {

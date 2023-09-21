@@ -11,6 +11,9 @@ import ru.job4j.cars.service.PhotoService;
 
 import java.util.Optional;
 
+/**
+ * Контроллер фотографий
+ */
 @RestController
 @AllArgsConstructor
 @RequestMapping("/photo")

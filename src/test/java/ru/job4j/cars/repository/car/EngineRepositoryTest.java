@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.car;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cars.common.model.car.Owner;
+import ru.job4j.cars.repository.CrudRepository;
 import ru.job4j.cars.repository.car.OwnerRepository;
 import ru.job4j.cars.repository.user.UserRepository;
 

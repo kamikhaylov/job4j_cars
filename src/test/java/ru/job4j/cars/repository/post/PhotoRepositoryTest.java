@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.post;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,32 +10,29 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.common.model.car.Owner;
-import ru.job4j.cars.repository.car.OwnerRepository;
-import ru.job4j.cars.repository.user.UserRepository;
+import ru.job4j.cars.common.model.post.Photo;
+import ru.job4j.cars.repository.CrudRepository;
+import ru.job4j.cars.repository.post.PhotoRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
-import static ru.job4j.cars.repository.CreatedDtoUtils.createOwner;
-import static ru.job4j.cars.repository.CreatedDtoUtils.createUser;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createPhoto;
 
-class OwnerRepositoryTest {
-
+class PhotoRepositoryTest {
     private final StandardServiceRegistry registry =
             new StandardServiceRegistryBuilder().configure().build();
     private final SessionFactory sf =
             new MetadataSources(registry).buildMetadata().buildSessionFactory();
     private final CrudRepository crudRepository = new CrudRepository(sf);
-    private final UserRepository userRepository = new UserRepository(crudRepository);
-    private final OwnerRepository ownerRepository = new OwnerRepository(crudRepository);
+    private final PhotoRepository photoRepository = new PhotoRepository(crudRepository, null);
 
-    private Owner owner;
+    private Photo photo;
 
     @BeforeEach
     public void before() {
-        owner = createOwner(ownerRepository, createUser(userRepository));
+        photo = createPhoto(photoRepository);
     }
 
     @AfterEach
@@ -44,8 +41,7 @@ class OwnerRepositoryTest {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createQuery("delete from Owner").executeUpdate();
-            session.createQuery("delete from User").executeUpdate();
+            session.createQuery("delete from Photo").executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
             if (nonNull(transaction)) {
@@ -59,36 +55,34 @@ class OwnerRepositoryTest {
 
     @Test
     public void whenUpdate() {
-        Owner ownerToUpdate = ownerRepository.findById(owner.getId()).get();
-        ownerToUpdate.setName("new");
-        ownerRepository.update(ownerToUpdate);
-        Owner result = ownerRepository.findById(owner.getId()).get();
+        Photo photoToUpdate = photoRepository.findById(photo.getId()).get();
+        photoToUpdate.setName("new");
+        photoRepository.update(photoToUpdate);
+        Photo result = photoRepository.findById(photo.getId()).get();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(ownerToUpdate.getName(), result.getName());
+        Assertions.assertEquals(photoToUpdate.getName(), result.getName());
     }
 
     @Test
     public void whenDelete() {
-        ownerRepository.delete(owner.getId());
-        Optional<Owner> result = ownerRepository.findById(owner.getId());
+        photoRepository.delete(photo.getId());
+        Optional<Photo> result = photoRepository.findById(photo.getId());
 
         Assertions.assertTrue(result.isEmpty());
     }
 
     @Test
     public void whenFindAll() {
-        List<Owner> result = ownerRepository.findAll();
+        List<Photo> result = photoRepository.findAll();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(1, result.size());
-        Assertions.assertEquals(owner.getName(), result.get(0).getName());
     }
 
     @Test
     public void whenFindById() {
-        Owner result = ownerRepository.findById(owner.getId()).get();
+        Photo result = photoRepository.findById(photo.getId()).get();
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(owner.getName(), result.getName());
+        Assertions.assertEquals(photo.getName(), result.getName());
     }
 }

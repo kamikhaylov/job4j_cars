@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.car;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,16 +10,19 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.common.model.user.User;
+import ru.job4j.cars.common.model.car.Owner;
+import ru.job4j.cars.repository.CrudRepository;
+import ru.job4j.cars.repository.car.OwnerRepository;
 import ru.job4j.cars.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
+import static ru.job4j.cars.repository.CreatedDtoUtils.createOwner;
 import static ru.job4j.cars.repository.CreatedDtoUtils.createUser;
 
-class UserRepositoryTest {
+class OwnerRepositoryTest {
 
     private final StandardServiceRegistry registry =
             new StandardServiceRegistryBuilder().configure().build();
@@ -27,12 +30,13 @@ class UserRepositoryTest {
             new MetadataSources(registry).buildMetadata().buildSessionFactory();
     private final CrudRepository crudRepository = new CrudRepository(sf);
     private final UserRepository userRepository = new UserRepository(crudRepository);
+    private final OwnerRepository ownerRepository = new OwnerRepository(crudRepository);
 
-    private User user;
+    private Owner owner;
 
     @BeforeEach
     public void before() {
-        user = createUser(userRepository);
+        owner = createOwner(ownerRepository, createUser(userRepository));
     }
 
     @AfterEach
@@ -41,6 +45,7 @@ class UserRepositoryTest {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
+            session.createQuery("delete from Owner").executeUpdate();
             session.createQuery("delete from User").executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -55,54 +60,36 @@ class UserRepositoryTest {
 
     @Test
     public void whenUpdate() {
-        User userToUpdate = userRepository.findById(user.getId()).get();
-        userToUpdate.setPassword("new");
-        userRepository.update(userToUpdate);
-        User result = userRepository.findById(user.getId()).get();
+        Owner ownerToUpdate = ownerRepository.findById(owner.getId()).get();
+        ownerToUpdate.setName("new");
+        ownerRepository.update(ownerToUpdate);
+        Owner result = ownerRepository.findById(owner.getId()).get();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(userToUpdate.getPassword(), result.getPassword());
+        Assertions.assertEquals(ownerToUpdate.getName(), result.getName());
     }
 
     @Test
     public void whenDelete() {
-        userRepository.delete(user.getId());
-        Optional<User> result = userRepository.findById(user.getId());
+        ownerRepository.delete(owner.getId());
+        Optional<Owner> result = ownerRepository.findById(owner.getId());
 
         Assertions.assertTrue(result.isEmpty());
     }
 
     @Test
     public void whenFindAll() {
-        List<User> result = userRepository.findAll();
+        List<Owner> result = ownerRepository.findAll();
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(1, result.size());
-        Assertions.assertEquals(user.getLogin(), result.get(0).getLogin());
+        Assertions.assertEquals(owner.getName(), result.get(0).getName());
     }
 
     @Test
     public void whenFindById() {
-        User result = userRepository.findById(user.getId()).get();
-
+        Owner result = ownerRepository.findById(owner.getId()).get();
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(user.getLogin(), result.getLogin());
-    }
-
-    @Test
-    public void whenFindByLikeLogin() {
-        List<User> result = userRepository.findByLikeLogin(user.getLogin().substring(1));
-
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(1, result.size());
-        Assertions.assertEquals(user.getLogin(), result.get(0).getLogin());
-    }
-
-    @Test
-    public void whenFindByLogin() {
-        User result = userRepository.findByLogin(user.getLogin()).get();
-
-        Assertions.assertNotNull(result);
-        Assertions.assertEquals(user.getLogin(), result.getLogin());
+        Assertions.assertEquals(owner.getName(), result.getName());
     }
 }

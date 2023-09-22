@@ -1,4 +1,4 @@
-package ru.job4j.cars.repository;
+package ru.job4j.cars.repository.user;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,25 +10,17 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.job4j.cars.common.model.car.History;
-import ru.job4j.cars.repository.car.HistoryRepository;
-import ru.job4j.cars.repository.car.OwnerRepository;
+import ru.job4j.cars.common.model.user.User;
+import ru.job4j.cars.repository.CrudRepository;
 import ru.job4j.cars.repository.user.UserRepository;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import static java.util.Objects.nonNull;
-import static ru.job4j.cars.repository.CreatedDtoUtils.createHistory;
-import static ru.job4j.cars.repository.CreatedDtoUtils.createOwner;
 import static ru.job4j.cars.repository.CreatedDtoUtils.createUser;
 
-class HistoryRepositoryTest {
-
-    private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+class UserRepositoryTest {
 
     private final StandardServiceRegistry registry =
             new StandardServiceRegistryBuilder().configure().build();
@@ -36,15 +28,12 @@ class HistoryRepositoryTest {
             new MetadataSources(registry).buildMetadata().buildSessionFactory();
     private final CrudRepository crudRepository = new CrudRepository(sf);
     private final UserRepository userRepository = new UserRepository(crudRepository);
-    private final OwnerRepository ownerRepository = new OwnerRepository(crudRepository);
-    private final HistoryRepository historyRepository = new HistoryRepository(crudRepository);
 
-    private History history;
+    private User user;
 
     @BeforeEach
     public void before() {
-        history = createHistory(historyRepository,
-                createOwner(ownerRepository, createUser(userRepository)));
+        user = createUser(userRepository);
     }
 
     @AfterEach
@@ -53,8 +42,6 @@ class HistoryRepositoryTest {
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
-            session.createQuery("delete from History").executeUpdate();
-            session.createQuery("delete from Owner").executeUpdate();
             session.createQuery("delete from User").executeUpdate();
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -69,38 +56,54 @@ class HistoryRepositoryTest {
 
     @Test
     public void whenUpdate() {
-        History historyToUpdate = historyRepository.findById(history.getId()).get();
-        historyToUpdate.setEndAt(LocalDateTime.now());
-        historyRepository.update(historyToUpdate);
-        History result = historyRepository.findById(history.getId()).get();
+        User userToUpdate = userRepository.findById(user.getId()).get();
+        userToUpdate.setPassword("new");
+        userRepository.update(userToUpdate);
+        User result = userRepository.findById(user.getId()).get();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(historyToUpdate.getId(), result.getId());
-        Assertions.assertEquals(historyToUpdate.getEndAt().format(FORMATTER),
-                result.getEndAt().format(FORMATTER));
+        Assertions.assertEquals(userToUpdate.getPassword(), result.getPassword());
     }
 
     @Test
     public void whenDelete() {
-        historyRepository.delete(history.getId());
-        Optional<History> result = historyRepository.findById(history.getId());
+        userRepository.delete(user.getId());
+        Optional<User> result = userRepository.findById(user.getId());
 
         Assertions.assertTrue(result.isEmpty());
     }
 
     @Test
     public void whenFindAll() {
-        List<History> result = historyRepository.findAll();
+        List<User> result = userRepository.findAll();
 
         Assertions.assertNotNull(result);
         Assertions.assertEquals(1, result.size());
-        Assertions.assertEquals(history.getId(), result.get(0).getId());
+        Assertions.assertEquals(user.getLogin(), result.get(0).getLogin());
     }
 
     @Test
     public void whenFindById() {
-        History result = historyRepository.findById(history.getId()).get();
+        User result = userRepository.findById(user.getId()).get();
+
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(history.getId(), result.getId());
+        Assertions.assertEquals(user.getLogin(), result.getLogin());
+    }
+
+    @Test
+    public void whenFindByLikeLogin() {
+        List<User> result = userRepository.findByLikeLogin(user.getLogin().substring(1));
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(1, result.size());
+        Assertions.assertEquals(user.getLogin(), result.get(0).getLogin());
+    }
+
+    @Test
+    public void whenFindByLogin() {
+        User result = userRepository.findByLogin(user.getLogin()).get();
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(user.getLogin(), result.getLogin());
     }
 }

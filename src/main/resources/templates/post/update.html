@@ -29,10 +29,10 @@
                     <a th:href="@{|/post/delete/${post.id}|}">
                         <button type="button" class="btn btn-secondary mr-2">Удалить</button>
                     </a>
-                    <a th:if="${post.isSold == false}" th:href="@{|/post/isSold/${post.id}}|}">
+                    <a th:if="${post.isSold == false}" th:href="@{|/post/isSold/${post.id}|}">
                         <button type="button" class="btn btn-secondary mr-2">Снять с продажи</button>
                     </a>
-                    <a th:if="${post.isSold == true}" th:href="@{|/post/isNotSold/${post.id}}|}">
+                    <a th:if="${post.isSold == true}" th:href="@{|/post/isNotSold/${post.id}|}">
                         <button type="button" class="btn btn-secondary mr-2">Вернуть в продажу</button>
                     </a>
                     <a>

@@ -88,6 +88,9 @@
 ### Ошибка при авторизации пользователя
 ![authorization_error.png](readme/image/authorization_error.png)
 
+### Контакты
+kanmikhaylov@gmail.com
+
 [actions-image]: https://github.com/kamikhaylov/job4j_cars/actions/workflows/maven.yml/badge.svg
 [actions-url]: https://github.com/kamikhaylov/job4j_cars/actions/workflows/maven.yml
 [codecov-image]: https://codecov.io/gh/kamikhaylov/job4j_cars/graph/badge.svg?token=88F9IMOKGF

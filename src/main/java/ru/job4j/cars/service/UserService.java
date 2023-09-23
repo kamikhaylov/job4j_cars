@@ -36,4 +36,13 @@ public class UserService {
         return repository.findByLogin(user.getLogin());
     }
 
+    /**
+     * Поиск пользователя
+     * @param user - пользователь
+     * @return возвращает пользователя
+     */
+    public Optional<User> findByLoginAndPassword(User user) {
+        return repository.findByLoginAndPassword(user.getLogin(), user.getPassword());
+    }
+
 }

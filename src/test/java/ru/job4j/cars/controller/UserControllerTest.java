@@ -100,7 +100,7 @@ class UserControllerTest {
 
     @Test
     public void whenLoginFail() {
-        when(userService.findByLogin(user)).thenReturn(Optional.empty());
+        when(userService.findByLoginAndPassword(user)).thenReturn(Optional.empty());
         String actual = controller.login(user, request);
 
         assertNotNull(actual);
@@ -109,6 +109,7 @@ class UserControllerTest {
 
     @Test
     public void whenLoginSuccess() {
+        when(userService.findByLoginAndPassword(user)).thenReturn(Optional.of(user));
         when(request.getSession()).thenReturn(httpSession);
         String actual = controller.login(user, request);
 

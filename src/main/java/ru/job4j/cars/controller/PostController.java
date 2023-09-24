@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
- * Коонтроллер объявлений
+ * Контроллер объявлений
  */
 @Controller
 @AllArgsConstructor
@@ -40,54 +40,6 @@ public class PostController {
     private final ColorService colorService;
     private final PostService postService;
     private final UserSession userSession;
-
-    @GetMapping("/list")
-    public String getPostList(Model model, HttpSession httpSession) {
-        User user = userSession.getUser(model, httpSession);
-        model.addAttribute("user", user);
-        model.addAttribute("posts", postService.getAllIsNotSold());
-        return "post/post";
-    }
-
-    @GetMapping("/list/day")
-    public String getPostListForDay(Model model, HttpSession httpSession) {
-        User user = userSession.getUser(model, httpSession);
-        model.addAttribute("user", user);
-        model.addAttribute("posts", postService.getAllForDay());
-        return "post/post";
-    }
-
-    @GetMapping("/list/withMileage")
-    public String getPostListWithMileage(Model model, HttpSession httpSession) {
-        User user = userSession.getUser(model, httpSession);
-        model.addAttribute("user", user);
-        model.addAttribute("posts", postService.findAllPostByCategoryName("С пробегом"));
-        return "post/post";
-    }
-
-    @GetMapping("/list/new")
-    public String getPostListNew(Model model, HttpSession httpSession) {
-        User user = userSession.getUser(model, httpSession);
-        model.addAttribute("user", user);
-        model.addAttribute("posts", postService.findAllPostByCategoryName("Новые"));
-        return "post/post";
-    }
-
-    @GetMapping("/list/all")
-    public String getPostListAll(Model model, HttpSession httpSession) {
-        User user = userSession.getUser(model, httpSession);
-        model.addAttribute("user", user);
-        model.addAttribute("posts", postService.getAll());
-        return "post/post";
-    }
-
-    @GetMapping("/my")
-    public String getMyPostList(Model model, HttpSession httpSession) {
-        User user = userSession.getUser(model, httpSession);
-        model.addAttribute("user", user);
-        model.addAttribute("posts", postService.getAllByUserId(user.getId()));
-        return "post/my";
-    }
 
     @GetMapping("/details/{id}")
     public String getDetails(Model model, HttpSession httpSession, @PathVariable("id") int id) {
@@ -120,7 +72,7 @@ public class PostController {
                 user, car, text, BigDecimal.valueOf(price),
                 new PhotoDto(file.getOriginalFilename(), file.getBytes()),
                 categoryId));
-        return "redirect:/post/my";
+        return "redirect:/posts/my";
     }
 
     @GetMapping("/update/{id}")
@@ -174,6 +126,6 @@ public class PostController {
         User user = userSession.getUser(model, httpSession);
         model.addAttribute("user", user);
         postService.delete(id);
-        return "redirect:/post/my/";
+        return "redirect:/posts/my/";
     }
 }

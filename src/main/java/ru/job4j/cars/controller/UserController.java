@@ -77,7 +77,7 @@ public class UserController {
             return "redirect:/user/authorization?fail=true";
         }
         userSession.create(result.get(), req);
-        return "redirect:/post/list";
+        return "redirect:/posts/list";
     }
 
     @GetMapping("/logout")

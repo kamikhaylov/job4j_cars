@@ -115,7 +115,7 @@ class UserControllerTest {
         String actual = controller.login(user, request);
 
         assertNotNull(actual);
-        assertEquals("redirect:/post/list", actual);
+        assertEquals("redirect:/posts/list", actual);
     }
 
     @Test

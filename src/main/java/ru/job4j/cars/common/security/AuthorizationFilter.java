@@ -29,11 +29,11 @@ public class AuthorizationFilter extends HttpFilter {
             "user/login",
             "user/authorization",
             "user/logout",
-            "post/list",
-            "post/list/day",
-            "post/list/withMileage",
-            "post/list/new",
-            "post/list/all",
+            "posts/list",
+            "posts/list/day",
+            "posts/list/withMileage",
+            "posts/list/new",
+            "posts/list/all",
             "post/details",
             "photo"
     );

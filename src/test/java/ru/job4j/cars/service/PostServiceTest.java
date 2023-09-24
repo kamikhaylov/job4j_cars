@@ -3,7 +3,6 @@ package ru.job4j.cars.service;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -11,7 +10,6 @@ import ru.job4j.cars.common.dto.DetailsResponse;
 import ru.job4j.cars.common.dto.PhotoDto;
 import ru.job4j.cars.common.dto.PostDetailsContext;
 import ru.job4j.cars.common.dto.PostDto;
-import ru.job4j.cars.common.dto.PostListResponse;
 import ru.job4j.cars.common.mapper.response.Mapper;
 import ru.job4j.cars.common.model.car.Brand;
 import ru.job4j.cars.common.model.car.Car;
@@ -47,21 +45,19 @@ class PostServiceTest {
     @Mock
     private CategoryService categoryService;
     @Mock
-    private Mapper<Post, PostListResponse> postResponseModelMapper;
-    @Mock
     private Mapper<PostDetailsContext, DetailsResponse> detailsResponseModelMapper;
 
     @BeforeEach
     public void before() {
         MockitoAnnotations.openMocks(this);
         service = new PostService(postRepository, carService, photoService, categoryService,
-                postResponseModelMapper, detailsResponseModelMapper);
+                detailsResponseModelMapper);
     }
 
     @AfterEach
     public void after() {
         Mockito.reset(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
+                categoryService, detailsResponseModelMapper);
     }
 
     @Test
@@ -81,82 +77,7 @@ class PostServiceTest {
         verify(categoryService).getById(postDto.getCategoryId());
         verify(postRepository).create(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
-    }
-
-    @Test
-    public void whenGetAllThenReturnPosts() {
-        Post post = createPost();
-        when(postRepository.findAll()).thenReturn(List.of(post));
-        when(postResponseModelMapper.map(post)).thenReturn(new PostListResponse());
-
-        List<PostListResponse> actual = service.getAll();
-
-        assertNotNull(actual);
-        verify(postRepository).findAll();
-        verify(postResponseModelMapper).map(post);
-        verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
-    }
-
-    @Test
-    public void whenGetAllIsNotSoldThenReturnPosts() {
-        Post post = createPost();
-        when(postRepository.findAllIsNotSold()).thenReturn(List.of(post));
-        when(postResponseModelMapper.map(post)).thenReturn(new PostListResponse());
-
-        List<PostListResponse> actual = service.getAllIsNotSold();
-
-        assertNotNull(actual);
-        verify(postRepository).findAllIsNotSold();
-        verify(postResponseModelMapper).map(post);
-        verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
-    }
-
-    @Test
-    public void whenGetAllForDayThenReturnPosts() {
-        Post post = createPost();
-        when(postRepository.findAllPostAtLastDay()).thenReturn(List.of(post));
-
-        List<PostListResponse> actual = service.getAllForDay();
-
-        assertNotNull(actual);
-        verify(postRepository).findAllPostAtLastDay();
-        verify(postResponseModelMapper).map(post);
-        verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
-    }
-
-    @Test
-    public void whenFindAllPostByCategoryNameThenReturnPosts() {
-        String category = "С пробегом";
-        Post post = createPost();
-        when(postRepository.findAllPostByCategoryName(category)).thenReturn(List.of(post));
-        when(postRepository.findAllPostByCategoryName(category)).thenReturn(List.of(post));
-
-        List<PostListResponse> actual = service.findAllPostByCategoryName(category);
-
-        assertNotNull(actual);
-        verify(postRepository).findAllPostByCategoryName(category);
-        verify(postResponseModelMapper).map(post);
-        verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
-    }
-
-    @Test
-    public void whenGetAllByUserIdThenReturnPosts() {
-        int id = 1;
-        Post post = createPost();
-        when(postRepository.findAllPostByUserId(id)).thenReturn(List.of(post));
-
-        List<PostListResponse> actual = service.getAllByUserId(id);
-
-        assertNotNull(actual);
-        verify(postRepository).findAllPostByUserId(id);
-        verify(postResponseModelMapper).map(post);
-        verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
+                categoryService, detailsResponseModelMapper);
     }
 
     @Test
@@ -172,7 +93,7 @@ class PostServiceTest {
         verify(postRepository).findById(postId);
         verify(detailsResponseModelMapper).map(postDetailsContext);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
+                categoryService, detailsResponseModelMapper);
     }
 
     @Test
@@ -188,7 +109,7 @@ class PostServiceTest {
         verify(postRepository).findById(id);
         verify(postRepository).update(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
+                categoryService, detailsResponseModelMapper);
     }
 
     @Test
@@ -202,7 +123,7 @@ class PostServiceTest {
         verify(postRepository).findById(id);
         verify(postRepository).update(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
+                categoryService, detailsResponseModelMapper);
     }
 
     @Test
@@ -216,7 +137,7 @@ class PostServiceTest {
         verify(postRepository).findById(id);
         verify(postRepository).update(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
+                categoryService, detailsResponseModelMapper);
     }
 
     @Test
@@ -227,7 +148,7 @@ class PostServiceTest {
 
         verify(postRepository).delete(id);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseModelMapper, detailsResponseModelMapper);
+                categoryService, detailsResponseModelMapper);
     }
 
     private Post createPost() {

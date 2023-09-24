@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 import ru.job4j.cars.common.dto.PostListResponse;
 import ru.job4j.cars.common.security.UserSession;
-import ru.job4j.cars.service.PostService;
+import ru.job4j.cars.service.PostsService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,7 +27,7 @@ class PostsControllerTest {
     private PostsController controller;
 
     @Mock
-    private PostService postService;
+    private PostsService service;
     @Mock
     private Model model;
     @Mock
@@ -41,76 +41,76 @@ class PostsControllerTest {
     @BeforeEach
     public void before() {
         MockitoAnnotations.openMocks(this);
-        controller = new PostsController(postService, userSession);
+        controller = new PostsController(service, userSession);
     }
 
     @AfterEach
     public void after() {
-        Mockito.reset(postService, model, httpSession, request);
+        Mockito.reset(service, model, httpSession, request);
     }
 
     @Test
     public void whenGetPostList() {
         List<PostListResponse> posts = List.of(new PostListResponse());
-        when(postService.getAllIsNotSold()).thenReturn(posts);
+        when(service.getAllIsNotSold()).thenReturn(posts);
 
         String actual = controller.getPostList(model, httpSession);
 
         assertNotNull(actual);
         assertEquals("post/post", actual);
-        verify(postService).getAllIsNotSold();
-        verifyNoMoreInteractions(postService);
+        verify(service).getAllIsNotSold();
+        verifyNoMoreInteractions(service);
     }
 
     @Test
     public void whenPostListForDay() {
         List<PostListResponse> posts = List.of(new PostListResponse());
-        when(postService.getAllForDay()).thenReturn(posts);
+        when(service.getAllForDay()).thenReturn(posts);
 
         String actual = controller.getPostListForDay(model, httpSession);
 
         assertNotNull(actual);
         assertEquals("post/post", actual);
-        verify(postService).getAllForDay();
-        verifyNoMoreInteractions(postService);
+        verify(service).getAllForDay();
+        verifyNoMoreInteractions(service);
     }
 
     @Test
     public void whenGetPostListWithMileage() {
         List<PostListResponse> posts = List.of(new PostListResponse());
-        when(postService.findAllPostByCategoryName("С пробегом")).thenReturn(posts);
+        when(service.findAllPostByCategoryName("С пробегом")).thenReturn(posts);
 
         String actual = controller.getPostListWithMileage(model, httpSession);
 
         assertNotNull(actual);
         assertEquals("post/post", actual);
-        verify(postService).findAllPostByCategoryName("С пробегом");
-        verifyNoMoreInteractions(postService);
+        verify(service).findAllPostByCategoryName("С пробегом");
+        verifyNoMoreInteractions(service);
     }
 
     @Test
     public void whenGetPostListNew() {
         List<PostListResponse> posts = List.of(new PostListResponse());
-        when(postService.findAllPostByCategoryName("Новые")).thenReturn(posts);
+        when(service.findAllPostByCategoryName("Новые")).thenReturn(posts);
 
         String actual = controller.getPostListNew(model, httpSession);
 
         assertNotNull(actual);
         assertEquals("post/post", actual);
-        verify(postService).findAllPostByCategoryName("Новые");
-        verifyNoMoreInteractions(postService);
+        verify(service).findAllPostByCategoryName("Новые");
+        verifyNoMoreInteractions(service);
     }
 
     @Test
     public void whenGetPostListAll() {
         List<PostListResponse> posts = List.of(new PostListResponse());
-        when(postService.getAll()).thenReturn(posts);
+        when(service.getAll()).thenReturn(posts);
 
         String actual = controller.getPostListAll(model, httpSession);
 
         assertNotNull(actual);
         assertEquals("post/post", actual);
-        verify(postService).getAll();
-        verifyNoMoreInteractions(postService);
+        verify(service).getAll();
+        verifyNoMoreInteractions(service);
     }
 }

@@ -9,11 +9,11 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 import ru.job4j.cars.common.model.user.User;
+import ru.job4j.cars.common.security.UserSession;
 import ru.job4j.cars.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,8 +23,6 @@ import static org.mockito.Mockito.when;
 class UserControllerTest {
 
     private User user;
-
-    @InjectMocks
     private UserController controller;
 
     @Mock
@@ -35,12 +33,15 @@ class UserControllerTest {
     private HttpSession httpSession;
     @Mock
     private HttpServletRequest request;
+    @InjectMocks
+    private UserSession userSession;
 
     @BeforeEach
     public void before() {
         MockitoAnnotations.openMocks(this);
         user = new User(0, "login", "password", "name");
         when(userService.findByLogin(user)).thenReturn(Optional.of(user));
+        controller = new UserController(userService, userSession);
     }
 
     @AfterEach

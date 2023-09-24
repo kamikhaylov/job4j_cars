@@ -10,10 +10,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.cars.common.dto.DetailsResponse;
-import ru.job4j.cars.common.dto.PostDto;
 import ru.job4j.cars.common.dto.PostListResponse;
 import ru.job4j.cars.common.model.car.Car;
 import ru.job4j.cars.common.model.user.User;
+import ru.job4j.cars.common.security.UserSession;
 import ru.job4j.cars.service.BrandService;
 import ru.job4j.cars.service.CategoryService;
 import ru.job4j.cars.service.ColorService;
@@ -37,7 +37,6 @@ class PostControllerTest {
 
     private static final int ID = 0;
 
-    @InjectMocks
     private PostController controller;
 
     @Mock
@@ -60,10 +59,14 @@ class PostControllerTest {
     private User user;
     @Mock
     private MultipartFile file;
+    @InjectMocks
+    private UserSession userSession;
 
     @BeforeEach
     public void before() {
         MockitoAnnotations.openMocks(this);
+        controller = new PostController(categoryService, brandService,
+                engineService, colorService, postService, userSession);
     }
 
     @AfterEach

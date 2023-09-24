@@ -1,4 +1,4 @@
-package ru.job4j.cars.common.filter;
+package ru.job4j.cars.common.security;
 
 import org.springframework.stereotype.Component;
 

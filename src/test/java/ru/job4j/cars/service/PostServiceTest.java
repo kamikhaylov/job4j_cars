@@ -7,12 +7,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import ru.job4j.cars.common.converter.response.DetailsResponseConverter;
-import ru.job4j.cars.common.converter.response.PostResponseConverter;
 import ru.job4j.cars.common.dto.DetailsResponse;
 import ru.job4j.cars.common.dto.PhotoDto;
+import ru.job4j.cars.common.dto.PostDetailsContext;
 import ru.job4j.cars.common.dto.PostDto;
 import ru.job4j.cars.common.dto.PostListResponse;
+import ru.job4j.cars.common.mapper.response.Mapper;
 import ru.job4j.cars.common.model.car.Brand;
 import ru.job4j.cars.common.model.car.Car;
 import ru.job4j.cars.common.model.car.Color;
@@ -36,7 +36,6 @@ import static org.mockito.Mockito.when;
 
 class PostServiceTest {
 
-    @InjectMocks
     private PostService service;
 
     @Mock
@@ -48,19 +47,21 @@ class PostServiceTest {
     @Mock
     private CategoryService categoryService;
     @Mock
-    private PostResponseConverter postResponseConverter;
+    private Mapper<Post, PostListResponse> postResponseModelMapper;
     @Mock
-    private DetailsResponseConverter detailsResponseConverter;
+    private Mapper<PostDetailsContext, DetailsResponse> detailsResponseModelMapper;
 
     @BeforeEach
     public void before() {
         MockitoAnnotations.openMocks(this);
+        service = new PostService(postRepository, carService, photoService, categoryService,
+                postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @AfterEach
     public void after() {
         Mockito.reset(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -80,35 +81,37 @@ class PostServiceTest {
         verify(categoryService).getById(postDto.getCategoryId());
         verify(postRepository).create(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
     public void whenGetAllThenReturnPosts() {
         Post post = createPost();
         when(postRepository.findAll()).thenReturn(List.of(post));
+        when(postResponseModelMapper.map(post)).thenReturn(new PostListResponse());
 
         List<PostListResponse> actual = service.getAll();
 
         assertNotNull(actual);
         verify(postRepository).findAll();
-        verify(postResponseConverter).convert(post);
+        verify(postResponseModelMapper).map(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
     public void whenGetAllIsNotSoldThenReturnPosts() {
         Post post = createPost();
         when(postRepository.findAllIsNotSold()).thenReturn(List.of(post));
+        when(postResponseModelMapper.map(post)).thenReturn(new PostListResponse());
 
         List<PostListResponse> actual = service.getAllIsNotSold();
 
         assertNotNull(actual);
         verify(postRepository).findAllIsNotSold();
-        verify(postResponseConverter).convert(post);
+        verify(postResponseModelMapper).map(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -120,9 +123,9 @@ class PostServiceTest {
 
         assertNotNull(actual);
         verify(postRepository).findAllPostAtLastDay();
-        verify(postResponseConverter).convert(post);
+        verify(postResponseModelMapper).map(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -136,9 +139,9 @@ class PostServiceTest {
 
         assertNotNull(actual);
         verify(postRepository).findAllPostByCategoryName(category);
-        verify(postResponseConverter).convert(post);
+        verify(postResponseModelMapper).map(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -151,9 +154,9 @@ class PostServiceTest {
 
         assertNotNull(actual);
         verify(postRepository).findAllPostByUserId(id);
-        verify(postResponseConverter).convert(post);
+        verify(postResponseModelMapper).map(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -161,14 +164,15 @@ class PostServiceTest {
         int postId = 1;
         int userId = 1;
         Post post = createPost();
+        PostDetailsContext postDetailsContext = new PostDetailsContext(post);
         when(postRepository.findById(postId)).thenReturn(Optional.of(post));
 
-        DetailsResponse actual = service.getById(postId, userId);
+        service.getById(postId, userId);
 
         verify(postRepository).findById(postId);
-        verify(detailsResponseConverter).convert(post, userId);
+        verify(detailsResponseModelMapper).map(postDetailsContext);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -184,7 +188,7 @@ class PostServiceTest {
         verify(postRepository).findById(id);
         verify(postRepository).update(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -198,7 +202,7 @@ class PostServiceTest {
         verify(postRepository).findById(id);
         verify(postRepository).update(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -212,7 +216,7 @@ class PostServiceTest {
         verify(postRepository).findById(id);
         verify(postRepository).update(post);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     @Test
@@ -223,7 +227,7 @@ class PostServiceTest {
 
         verify(postRepository).delete(id);
         verifyNoMoreInteractions(postRepository, carService, photoService,
-                categoryService, postResponseConverter, detailsResponseConverter);
+                categoryService, postResponseModelMapper, detailsResponseModelMapper);
     }
 
     private Post createPost() {

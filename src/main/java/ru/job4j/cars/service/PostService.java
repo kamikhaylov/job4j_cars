@@ -3,11 +3,11 @@ package ru.job4j.cars.service;
 import lombok.AllArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
-import ru.job4j.cars.common.converter.response.DetailsResponseConverter;
-import ru.job4j.cars.common.converter.response.PostResponseConverter;
 import ru.job4j.cars.common.dto.DetailsResponse;
+import ru.job4j.cars.common.dto.PostDetailsContext;
 import ru.job4j.cars.common.dto.PostDto;
 import ru.job4j.cars.common.dto.PostListResponse;
+import ru.job4j.cars.common.mapper.response.Mapper;
 import ru.job4j.cars.common.model.car.Car;
 import ru.job4j.cars.common.model.post.Post;
 import ru.job4j.cars.repository.post.PostRepository;
@@ -30,8 +30,8 @@ public class PostService {
     private final CarService carService;
     private final PhotoService photoService;
     private final CategoryService categoryService;
-    private final PostResponseConverter postResponseConverter;
-    private final DetailsResponseConverter detailsResponseConverter;
+    private final Mapper<Post, PostListResponse> postResponseModelMapper;
+    private final Mapper<PostDetailsContext, DetailsResponse> detailsResponseModelMapper;
 
     @Transactional
     public Post create(PostDto postDto) {
@@ -40,36 +40,39 @@ public class PostService {
 
     public List<PostListResponse> getAll() {
         return postRepository.findAll().stream()
-                .map(postResponseConverter::convert)
+                .map(postResponseModelMapper::map)
                 .collect(Collectors.toList());
     }
 
     public List<PostListResponse> getAllIsNotSold() {
         return postRepository.findAllIsNotSold().stream()
-                .map(postResponseConverter::convert)
+                .map(postResponseModelMapper::map)
                 .collect(Collectors.toList());
     }
 
     public List<PostListResponse> getAllForDay() {
         return postRepository.findAllPostAtLastDay().stream()
-                .map(postResponseConverter::convert)
+                .map(postResponseModelMapper::map)
                 .collect(Collectors.toList());
     }
 
     public List<PostListResponse> findAllPostByCategoryName(String name) {
         return postRepository.findAllPostByCategoryName(name).stream()
-                .map(postResponseConverter::convert)
+                .map(postResponseModelMapper::map)
                 .collect(Collectors.toList());
     }
 
     public List<PostListResponse> getAllByUserId(int id) {
         return postRepository.findAllPostByUserId(id).stream()
-                .map(postResponseConverter::convert)
+                .map(postResponseModelMapper::map)
                 .collect(Collectors.toList());
     }
 
     public DetailsResponse getById(int postId, int userId) {
-        return detailsResponseConverter.convert(postRepository.findById(postId).get(), userId);
+        PostDetailsContext postDetailsContext =
+                new PostDetailsContext(postRepository.findById(postId).get());
+        postDetailsContext.setShowAction(postDetailsContext.getPost().getUser().getId() == userId);
+        return detailsResponseModelMapper.map(postDetailsContext);
     }
 
     @Transactional

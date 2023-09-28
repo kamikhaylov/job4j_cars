@@ -5,19 +5,19 @@
     <div class="container">
         <div th:replace="block/navbar.html :: navbar"></div>
         <div>
-            <a th:href="@{/post/list}">
+            <a th:href="@{/posts/list}">
                 <button type="button" class="btn btn-secondary">Все</button>
             </a>
-            <a th:href="@{/post/list/day}">
+            <a th:href="@{/posts/list/day}">
                 <button type="button" class="btn btn-secondary">За день</button>
             </a>
-            <a th:href="@{/post/list/withMileage}">
+            <a th:href="@{/posts/list/withMileage}">
                 <button type="button" class="btn btn-secondary">С пробегом</button>
             </a>
-            <a th:href="@{/post/list/new}">
+            <a th:href="@{/posts/list/new}">
                 <button type="button" class="btn btn-secondary">Новые</button>
             </a>
-            <a th:href="@{/post/list/all}">
+            <a th:href="@{/posts/list/all}">
                 <button type="button" class="btn btn-secondary">Включая проданные</button>
             </a>
         </div>

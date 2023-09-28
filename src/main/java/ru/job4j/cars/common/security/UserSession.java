@@ -1,7 +1,9 @@
-package ru.job4j.cars.common;
+package ru.job4j.cars.common.security;
 
+import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import ru.job4j.cars.common.model.user.User;
 
@@ -13,21 +15,20 @@ import static java.util.Objects.isNull;
 /**
  * Пользовательская сессия
  */
+@Component
+@AllArgsConstructor
 public final class UserSession {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(UserSession.class.getName());
     private static final String USER = "user";
     private static final String GUEST = "guest";
 
-    private UserSession() {
-    }
-
     /**
      * Создание пользовательской сессии
      * @param user - пользователь
      * @param req - запрос
      */
-    public static void create(User user, HttpServletRequest req) {
+    public void create(User user, HttpServletRequest req) {
         LOGGER.info("Создание пользовательской сессии");
 
         HttpSession session = req.getSession();
@@ -40,7 +41,7 @@ public final class UserSession {
      * @param httpSession - http-сессия
      * @return возвращает пользователя
      */
-    public static User getUser(Model model, HttpSession httpSession) {
+    public User getUser(Model model, HttpSession httpSession) {
         LOGGER.info("Проверка пользователя");
 
         User user = (User) httpSession.getAttribute(USER);
@@ -57,7 +58,7 @@ public final class UserSession {
      * Сброс сессии
      * @param httpSession - http-сессия
      */
-    public static void invalidate(HttpSession httpSession) {
+    public void invalidate(HttpSession httpSession) {
         LOGGER.info("Сброс сессии");
 
         httpSession.invalidate();

@@ -32,7 +32,7 @@
 - Создать БД cars хост `jdbc:postgresql://localhost:5432/cars`
 - Собрать jar с приложением, выполнив команду `mvn install`
 - Запустить приложение, выполнив команду: `java -jar job4j_cars`
-- Перейти в браузере по ссылке `http://localhost:8080/post/list`
+- Перейти в браузере по ссылке `http://localhost:8080/posts/list`
 
 ### Таблицы PostgreSQL DB
 Таблицы базы данных написаны с помощью Liquibase. Схема БД:

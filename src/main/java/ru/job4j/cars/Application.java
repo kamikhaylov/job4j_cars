@@ -16,6 +16,6 @@ public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        LOGGER.info("Go to http://localhost:8080/post/list");
+        LOGGER.info("Go to http://localhost:8080/posts/list");
     }
 }

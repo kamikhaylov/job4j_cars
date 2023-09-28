@@ -1,6 +1,5 @@
 package ru.job4j.cars.controller;
 
-
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.job4j.cars.common.UserSession;
+import ru.job4j.cars.common.security.UserSession;
 import ru.job4j.cars.common.model.user.User;
 import ru.job4j.cars.service.UserService;
 
@@ -28,12 +27,13 @@ import static java.util.Objects.nonNull;
 public class UserController {
 
     private final UserService userService;
+    private final UserSession userSession;
 
     @GetMapping("/registration")
     public String registration(Model model, HttpSession httpSession,
                                @RequestParam(name = "fail", required = false) Boolean fail,
                                @RequestParam(name = "success", required = false) Boolean success) {
-        User user = UserSession.getUser(model, httpSession);
+        User user = userSession.getUser(model, httpSession);
         model.addAttribute("user", user);
         model.addAttribute("fail", nonNull(fail));
         model.addAttribute("success", nonNull(success));
@@ -64,7 +64,7 @@ public class UserController {
     @GetMapping("/authorization")
     public String authorization(Model model, HttpSession httpSession,
                        @RequestParam(name = "fail", required = false) Boolean fail) {
-        User user = UserSession.getUser(model, httpSession);
+        User user = userSession.getUser(model, httpSession);
         model.addAttribute("user", user);
         model.addAttribute("fail", nonNull(fail));
         return "user/authorization";
@@ -76,13 +76,13 @@ public class UserController {
         if (result.isEmpty()) {
             return "redirect:/user/authorization?fail=true";
         }
-        UserSession.create(result.get(), req);
-        return "redirect:/post/list";
+        userSession.create(result.get(), req);
+        return "redirect:/posts/list";
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        UserSession.invalidate(session);
+        userSession.invalidate(session);
         return "redirect:/user/authorization";
     }
 }

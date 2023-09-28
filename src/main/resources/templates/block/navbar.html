@@ -6,9 +6,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
             <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="#" th:href="@{/post/list}">Объявления</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/posts/list}">Объявления</a>
                 <a class="nav-item nav-link" href="#" th:if="${user.name != 'guest'}" th:href="@{/post/create}">Добавить</a>
-                <a class="nav-item nav-link" href="#" th:if="${user.name != 'guest'}" th:href="@{/post/my}">Мои</a>
+                <a class="nav-item nav-link" href="#" th:if="${user.name != 'guest'}" th:href="@{/posts/my}">Мои</a>
             </div>
             <div class="navbar-nav d-flex flex-row-reverse" th:if="${user.name == 'guest'}">
                 <a class="nav-item nav-link" th:href="@{/user/authorization}">Войти</a>

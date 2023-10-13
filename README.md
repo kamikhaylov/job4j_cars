@@ -89,7 +89,8 @@
 ![authorization_error.png](readme/image/authorization_error.png)
 
 ### Контакты
-kanmikhaylov@gmail.com
+- kanmikhaylov@gmail.com
+- [telegram](https://t.me/KonstantinM1khaylov) 
 
 [actions-image]: https://github.com/kamikhaylov/job4j_cars/actions/workflows/maven.yml/badge.svg
 [actions-url]: https://github.com/kamikhaylov/job4j_cars/actions/workflows/maven.yml
